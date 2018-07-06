@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhangheng.history.dao.CarouselDAO">
+
+	<select id="findById" resultType="carousel">
+		select * from carousel where id =#{id}
+	</select>
+	
+	<update id="updateStatus">
+		update carousel set status =#{status} where id=#{id}
+	</update>
+	
+	<insert id="save">
+		insert into carousel(id,url,sort,joinTime)
+		values(#{id},#{url},#{sort},#{joinTime})
+	</insert>
+	
+	<select id="queryList" resultType="carousel">
+		select * from carousel where status =1 order by sort desc
+	</select>
+	
+</mapper>
