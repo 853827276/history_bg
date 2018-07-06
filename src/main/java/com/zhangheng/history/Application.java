@@ -3,6 +3,7 @@ package com.zhangheng.history;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * 程序启动入口
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("com.zhangheng.history.dao")
+@EnableCaching
 public class Application {
 
 	/**

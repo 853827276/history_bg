@@ -24,6 +24,7 @@ import com.zhangheng.history.util.ResultEnum;
 @Order(1)
 public class CheckParamAspect {
 
+	
 	private static Logger logger = Logger.getLogger(CheckParamAspect.class);
 
 	@Pointcut("@annotation(com.zhangheng.history.annotation.CheckParam)")

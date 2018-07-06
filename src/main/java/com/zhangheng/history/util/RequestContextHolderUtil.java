@@ -39,7 +39,7 @@ public class RequestContextHolderUtil {
 		Assert.notNull(key);
 		
 		Cookie c = new Cookie(key, value);
-		c.setPath("/");
+		c.setPath("*");
 		if(maxage != null) {
 			c.setMaxAge(maxage);
 		}

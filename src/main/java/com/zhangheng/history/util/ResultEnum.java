@@ -10,6 +10,7 @@ public enum ResultEnum {
 	/**用户session key前缀*/
 	USERSESSIONKEY(1,"history_session_"),
 	USERCOOKIEKEY(1,"history_cookie_"),
+	USERREDISKEY(1,"history_redis_"),
 	LOGINERROR(-1,"账号或密码不对"),
 	
 	JOBSTATUSFINISH(1,"已完成"),
