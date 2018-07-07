@@ -7,11 +7,19 @@ package com.zhangheng.history.util;
  * @date 2018年4月26日下午2:34:37
  */
 public enum ResultEnum {
+	
+	/**
+	 * 菜单的默认PID
+	 */
+	MENUPID(-1,"-1"),
+	
 	/**用户session key前缀*/
 	USERSESSIONKEY(1,"history_session_"),
 	USERCOOKIEKEY(1,"history_cookie_"),
 	USERREDISKEY(1,"history_redis_"),
 	LOGINERROR(-1,"账号或密码不对"),
+	
+	USEREXPIRE(-1,"用户已过期，请重新登陆"),
 	
 	JOBSTATUSFINISH(1,"已完成"),
 	JOBSTATUSNOBEGIN(0,"未开始"),

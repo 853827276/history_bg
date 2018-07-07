@@ -1,8 +1,13 @@
 package com.zhangheng.history.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3299238300493641387L;
 	private String id;
 	private String userName;
 	private String password;

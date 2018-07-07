@@ -1,5 +1,6 @@
 package com.zhangheng.history.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,8 +8,12 @@ import java.util.Date;
  * @author zhangh
  * @date 2018年7月6日下午4:26:39
  */
-public class Carousel {
+public class Carousel implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 26783880782333059L;
 	private String id;
 	private String url;
 	private Integer sort;

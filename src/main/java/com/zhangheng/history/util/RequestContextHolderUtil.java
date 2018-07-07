@@ -1,8 +1,5 @@
 package com.zhangheng.history.util;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +20,7 @@ public class RequestContextHolderUtil {
 		return getRequestAttributes().getResponse();
 	}
 	public static String getCookieValue(String key) {
-		Assert.notNull(key);
+		Assert.notNull(key,"");
 		Cookie[] cookies = getRequest().getCookies();
 		if (cookies != null && cookies.length > 0) {
 			for (Cookie cookie : cookies) {
@@ -36,10 +33,10 @@ public class RequestContextHolderUtil {
 	}
 	
 	public static void setCookieValue(String key, String value, Integer maxage) {
-		Assert.notNull(key);
+		Assert.notNull(key,"");
 		
 		Cookie c = new Cookie(key, value);
-		c.setPath("*");
+		c.setPath("/");
 		if(maxage != null) {
 			c.setMaxAge(maxage);
 		}

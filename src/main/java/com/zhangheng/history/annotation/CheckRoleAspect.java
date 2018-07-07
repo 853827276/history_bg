@@ -5,11 +5,13 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.zhangheng.history.domain.User;
 import com.zhangheng.history.exception.MyException;
+import com.zhangheng.history.util.RedisUtil;
 import com.zhangheng.history.util.RequestContextHolderUtil;
 import com.zhangheng.history.util.ResultEnum;
 
@@ -23,7 +25,9 @@ import com.zhangheng.history.util.ResultEnum;
 @Component
 @Order(2)
 public class CheckRoleAspect {
-
+	@Autowired
+	private RedisUtil redisUtil;
+	
 	private static Logger logger = Logger.getLogger(CheckRoleAspect.class);
 
 	@Pointcut("@annotation(com.zhangheng.history.annotation.CheckRole)")
@@ -41,7 +45,8 @@ public class CheckRoleAspect {
 	 */
 	@Around("pointCut()")
 	public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-		User user = (User) RequestContextHolderUtil.getSession().getAttribute(ResultEnum.USERSESSIONKEY.getMsg());
+		String uid = RequestContextHolderUtil.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
+		User user =(User)redisUtil.get(ResultEnum.USERREDISKEY.getMsg()+uid);
 		if (null!=user) {// 校验角色
 			return proceedingJoinPoint.proceed();
 		} else {

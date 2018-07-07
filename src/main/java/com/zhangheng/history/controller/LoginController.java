@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zhangheng.history.domain.RedisModel;
 import com.zhangheng.history.domain.User;
-import com.zhangheng.history.service.IRedisService;
 import com.zhangheng.history.service.UserService;
+import com.zhangheng.history.util.RedisUtil;
+import com.zhangheng.history.util.RequestContextHolderUtil;
 import com.zhangheng.history.util.ResultEnum;
 import com.zhangheng.history.util.ResultInfo;
 import com.zhangheng.history.util.ResultUtil;
@@ -25,7 +25,7 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private IRedisService<RedisModel> iRedisService;
+	private RedisUtil redisUtil;
 	/**
 	 * 登陆接口	
 	 * @author zhangh
@@ -38,8 +38,9 @@ public class LoginController {
 	public ResultInfo<Object> login(@PathVariable String userName,@PathVariable String password){
 		 User u = userService.login(userName, password);
 		 if(u!=null){
-			 //写入session
-			 iRedisService.put(ResultEnum.USERREDISKEY.getMsg()+u.getId(), new RedisModel(u), -1);
+			 RequestContextHolderUtil.setCookieValue(ResultEnum.USERCOOKIEKEY.getMsg(), u.getId(), -1);
+			 //写入redis
+			 redisUtil.set(ResultEnum.USERREDISKEY.getMsg()+u.getId(), u.getId(), 2*60*60l);
 			 return ResultUtil.success(ResultEnum.SUCCESS);		 
 		 }
 		 return ResultUtil.success(ResultEnum.LOGINERROR);

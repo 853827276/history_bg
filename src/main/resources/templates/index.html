@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>首页</title>
+<link type="text/css" href="css/common.css" rel="stylesheet" />
+<link type="text/css" href="css/layui.css" rel="stylesheet" media="all" />
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.baiduMap.min.js"></script>
+<script src="/js/map.js"></script>
+</head>
+<body>
+	<!-- 导航 -->
+	<ul class="layui-nav">
+		<li class="layui-nav-item layui-col-md7"><a href="">中国当代史口述历史档案</a></li>
+		<li class="layui-nav-item layui-col-md1"><a href="">首页</a></li>
+		<li class="layui-nav-item layui-col-md1"><a href="">资料库</a></li>
+		<li class="layui-nav-item layui-col-md1"><a href="#newsDy">新闻动态</a></li>
+		<li class="layui-nav-item layui-col-md1"><a href="#latestNews">最新留言<span class="layui-badge">9</span></a></li>
+		<li class="layui-nav-item" lay-unselect="">
+			<a href="javascript:;" id="showInfo"><img src="./imgs/photo.jpg" class="layui-nav-img" />注册</a>
+			<dl class="layui-nav-child">
+				<dd> <a href="javascript:;" id="login">登陆</a> </dd>
+				<dd> <a href="javascript:;" id="register">注册</a> </dd>
+				<dd> <a href="javascript:;" id="consoleIndex">控制台<span class="layui-badge-dot"></span></a> </dd>
+				<dd> <a href="javascript:;" id="profile">查看信息</a> </dd>
+				<dd> <a href="javascript:;" id="changePassword">修改密码</a> </dd>
+				<dd> <a href="javascript:;">退出</a> </dd>
+			</dl>
+		</li>
+	</ul>
+	<!-- 	轮播图 -->
+	<div class="content">
+		<div class="layui-carousel" id="carousel" lay-filter="carousel">
+			<div carousel-item="" id="loadCarousel"></div>
+		</div>
+	</div>
+	<!-- 新闻动态 -->
+	<p class="layui-elem-quote">
+		<a class="layui-btn layui-btn-normal" id="newsDy">新闻动态</a>
+	</p>
+	<ul class="layui-timeline">
+		<li class="layui-timeline-item"><i
+			class="layui-icon layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<div class="layui-timeline-title">至今 我仍在创业的大路上奔跑</div>
+			</div></li>
+		<li class="layui-timeline-item"><i
+			class="layui-icon layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<div class="layui-timeline-title">2016年 我开始创业</div>
+			</div></li>
+		<li class="layui-timeline-item"><i
+			class="layui-icon layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<div class="layui-timeline-title">2015年 我成功的加入BAT,成为了一名蓝领</div>
+			</div></li>
+		<li class="layui-timeline-item"><i
+			class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<div class="layui-timeline-title">2011年 刚开始思考人生</div>
+			</div></li>
+	</ul>
+	<!-- 	最近留言 -->
+	<p class="layui-elem-quote">
+		<a class="layui-btn layui-btn-normal">最近留言</a><a class="layui-btn layui-btn-normal" style="float: right;">查看更多</a>
+	</p>
+	<table class="layui-table" lay-even="" lay-skin="row" id="latestNews">
+		<colgroup>
+			<col width="100"/>
+			<col width="100"/>
+			<col width="100"/>
+			<col/>
+			<col width="200"/>
+			<col width="200"/>
+		</colgroup>
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>手机</th>
+				<th>性别</th>
+				<th>内容</th>
+				<th>时间</th>
+				<th>评价</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="message:${messages}">
+				<td th:text="${message.name}"></td>
+				<td th:text="${message.phone}"></td>
+				<td th:text="${message.sex}"></td>
+				<td th:text="${message.content}"></td>
+				<td th:text="${#dates.format(message.joinTime,'yyyy-MM-dd hh:mm:ss')}"></td>
+				<td th:text="${message.stares}" class='pingfen'></td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- 欢迎留言 -->
+	<p class="layui-elem-quote"><a class="layui-btn layui-btn-normal">欢迎留言</a></p>  
+	<form class="layui-form" action="" style="margin-top: 10px;">
+		<div class="layui-form-item">
+			<label class="layui-form-label">您的姓名:</label>
+			<div class="layui-input-block">
+				<input type="text" name="username" lay-verify="title"
+					autocomplete="off" placeholder="请输入您的姓名" class="layui-input"/>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">您的手机:</label>
+			<div class="layui-input-block">
+				<input type="text" name="password" lay-verify="required"
+					placeholder="请输入您的手机" autocomplete="off" class="layui-input"/>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">您的邮箱:</label>
+			<div class="layui-input-block">
+				<input type="text" name="password" lay-verify="required"
+					placeholder="请输入您的邮箱" autocomplete="off" class="layui-input"/>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">您的性别</label>
+			<div class="layui-input-block">
+				<input type="radio" name="sex" value="男" title="男" checked=""/>
+				<input type="radio" name="sex" value="女" title="女"/> 
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">您的评价</label>
+			<div class="layui-input-block">
+				<div id="pingfen" class='pingfen'></div>
+			</div>
+		</div>
+		<div class="layui-form-item layui-form-text">
+			<label class="layui-form-label">您的留言:</label>
+			<div class="layui-input-block">
+				<textarea placeholder="请输入您的留言内容" class="layui-textarea"></textarea>
+			</div>
+		</div>
+		<div class="layui-form-item" style="margin-left: 5.8%;">
+			<button class="layui-btn">提交</button>
+			<button class="layui-btn">重填</button>
+		</div>
+	</form>
+	<div class="content">
+	<p class="layui-elem-quote"><a class="layui-btn layui-btn-normal">我的位置</a></p>
+		<div id="map" class="map"></div>
+	</div>
+	<!-- 版权 -->
+	<div class="copyRight">
+		<p>联系方式：666666@163.com | 监督电话：16666666666</p>
+		<p>一切版权归属沈阳师范大学外国语学院</p>
+	</div>
+	<div style="height: 1px;width: 1px; overflow: hidden;">
+		<div id="loginDiv">
+			<form class="layui-form" action="" style="margin-top: 10px;">
+				<div class="layui-form-item">
+					<label class="layui-form-label">账号</label>
+					<div class="layui-input-inline">
+						<input type="text" name="username" id="login_username" lay-verify="title"
+							autocomplete="off" placeholder="请输入用户名" class="layui-input"/>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">密码</label>
+					<div class="layui-input-inline">
+						<input type="text" name="password" id="login_password" lay-verify="required"
+							placeholder="请输入密码" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+		<!-- 		<div class="layui-form-item" style="margin-left: 30%;"> -->
+		<!-- 		    <button class="layui-btn" >登陆</button> -->
+		<!-- 		    <button class="layui-btn" >重新填写</button> -->
+		<!-- 		</div> -->
+			</form>
+		</div>
+		<div id="registerDiv" style="display: none;">
+			<form class="layui-form" id="registerForm" action="" style="margin-top: 10px;">
+				<div class="layui-form-item">
+					<label class="layui-form-label">账号</label>
+					<div class="layui-input-inline">
+						<input type="text" name="username" id="username" lay-verify="required"
+							autocomplete="off" placeholder="请输入用户名" class="layui-input"/>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">密码</label>
+					<div class="layui-input-inline">
+						<input type="text" name="password" id="password" lay-verify="required"
+							placeholder="请输入密码" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">姓名</label>
+					<div class="layui-input-inline">
+						<input type="text" name="name" id="name" lay-verify="required"
+							placeholder="请输入您的真实姓名" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">手机</label>
+						<div class="layui-input-inline">
+							<input type="tel" name="phone" id="phone" lay-verify="required"
+								autocomplete="off" class="layui-input"/>
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">邮箱</label>
+						<div class="layui-input-inline">
+							<input type="text" name="email" id="email" lay-verify="email"
+								autocomplete="off" class="layui-input"/>
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">头像</label>
+						<button type="button" class="layui-btn" id="uploadPhone"><i class="layui-icon">&#xe67c;</i>选择头像</button>
+						<button type="button" class="layui-btn" id="submit_phone">开始上传</button>
+						<div class="layui-upload-list" style="margin-left: 80px;">
+							<img class="layui-upload-img" id="upload-phone" width="150px" src=""/>
+						</div>
+						<input id="photo" name="photo" type="hidden" />
+					</div>
+				</div>
+				
+	<!-- 			<div class="layui-form-item" style="margin-left: 30%;"> -->
+	<!-- 			    <button class="layui-btn" >注册</button> -->
+	<!-- 			    <button class="layui-btn" >重新填写</button> -->
+	<!-- 			</div> -->
+			</form>
+		</div>
+	</div>
+<script src="/js/layui.all.js"></script>
+<script src="/js/common.js"></script>
+<script type="text/javascript">
+	//登陆弹层
+	$(function() {
+		function registerCallback(res){
+			if(res.status){				
+				layer.msg('恭喜您注册成功!',{icon: 1,time: 2000},function(){layer.closeAll();window.href=location.href;});
+			}else{
+				layer.msg('很抱歉注册失败，原因：'+res.msg,{icon: 1,time: 2000});
+			}
+		}
+		function loginback(res){
+			if(res.status){				
+// 				layer.msg('恭喜您注册成功!',{icon: 1,time: 2000},function(){layer.closeAll();window.href=location.href;});
+				window.location=window.location;
+			}else{
+				return layer.msg('登陆失败，原因：'+res.msg,{icon: 1,time: 2000});
+			}
+		}
+		
+		//评分
+		layui.rate.render({
+		    elem: '.pingfen',
+		    value:2
+		})
+		//拖拽上传
+		layui.upload.render({
+			elem : '#uploadPhone',
+			url : uploadPath,
+			auto:false,
+			choose: function(obj){
+	             console.log(obj)
+	             //预读本地文件示例，不支持ie8
+	             obj.preview(function(index, file, result){
+	                 $('#upload-phone').attr('src', result); //图片链接（base64）
+	             });
+	        },
+	        bindAction: '#submit_phone',
+			done : function(res) {
+				$("#photo").attr('value',res.data.src);
+				return layer.msg('图片上传成功!',{icon: 1,time: 2000});
+			},error:function(){
+				console.log('上传失败');
+			}
+		});
+		$('#consoleIndex').click(function(){
+			window.location.href=consolePath;
+		});
+		$("#login").click(function() {
+			layer.open({
+				title : '登陆',
+				type : 1,
+				area : [ '30%', '220px' ],
+				content : $('#loginDiv'),
+				scrollbar : false,
+				btn:['登陆','取消'],
+				btnAlign: 'c',
+				yes:function(){
+					loginPath
+					ajaxUtil.get(false,null,loginPath+'/'+$('#login_username').val()+'/'+$('#login_password').val(),loginback);
+				},function(){
+					layer.closeAll();
+				}
+			});
+		});
+		$("#register").click(function() {
+			layer.open({
+				title : '注册',
+				type : 1,
+				area : [ '500px', '500px' ],
+				content : $('#registerDiv'),
+				scrollbar : false,
+				btn:['提交','取消'],
+				btnAlign: 'c',
+				yes:function(){
+					//提交数据
+					var inputData={
+						'userName':$('#registerDiv #username').val(),
+						'password':$('#registerDiv #password').val(),
+						'name':$('#registerDiv #name').val(),
+						'phone':$('#registerDiv #phone').val(),
+						'email':$('#registerDiv #email').val(),
+						'profile':$('#registerDiv #photo').val()
+					};
+					ajaxUtil.get(false,inputData,registerPath,registerCallback);					
+				},function(){
+					layer.closeAll();
+				}
+			});
+		});
+		$('#changePassword').click(function(){
+			layer.open({
+				title : '修改密码',
+				type : 2,
+				btn:['确认','取消'],
+				btnAlign: 'c',
+				yes:function(){
+					layer.open({
+						title:'修改密码',
+						content:"密码修改成功！请重新登陆",
+						yes:function(){
+							layer.closeAll();
+						},function(){
+							layer.closeAll();
+						}
+					})
+				},function(){
+					layer.closeAll();
+				},
+				area : [ '400px', '300px' ],
+				content : 'changePassword.html',
+				scrollbar : false
+			});
+		});
+	});
+</script>	
+</body>
+</html>
