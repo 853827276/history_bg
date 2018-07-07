@@ -16,7 +16,7 @@ import com.zhangheng.history.util.RequestContextHolderUtil;
 import com.zhangheng.history.util.ResultEnum;
 
 /**
- * 自定义校验角色切面
+ * 自定义校验ADMIN角色切面
  * 
  * @author zhangh
  * @date 2018年6月26日上午10:03:32
@@ -47,7 +47,7 @@ public class CheckRoleAspect {
 	public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		String uid = RequestContextHolderUtil.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
 		User user =(User)redisUtil.get(ResultEnum.USERREDISKEY.getMsg()+uid);
-		if (null!=user) {// 校验角色
+		if (null!=user&&ResultEnum.USERTYPEADMIN.getMsg().equals(user.getIsAdmin())) {// 校验角色
 			return proceedingJoinPoint.proceed();
 		} else {
 			logger.info("请先登陆");

@@ -20,7 +20,8 @@ public enum ResultEnum {
 	LOGINERROR(-1,"账号或密码不对"),
 	
 	USEREXPIRE(-1,"用户已过期，请重新登陆"),
-	
+	USERTYPEADMIN(1,"1"),
+	USERTYPENOTADMIN(2,"0"),
 	JOBSTATUSFINISH(1,"已完成"),
 	JOBSTATUSNOBEGIN(0,"未开始"),
 	JOBSTATUSPAUSE(2,"已暂停"),
