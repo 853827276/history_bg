@@ -13,6 +13,7 @@ public class Menu implements Serializable{
 	private String id;
 	private String pid;
 	private String name;
+	private String url;
 	private String status;
 	private Integer sort;
 	private Date joinTime;
@@ -66,6 +67,12 @@ public class Menu implements Serializable{
 	}
 	public void setPlist(List<Menu> plist) {
 		this.plist = plist;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	

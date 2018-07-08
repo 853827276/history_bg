@@ -1,0 +1,17 @@
+<div class="layui-header" th:fragment="header">
+  <div class="layui-logo">后台管理LOGO</div>
+  <ul class="layui-nav layui-layout-left">
+    <li class="layui-nav-item"><a href="/console/index">控制台</a></li>
+  </ul>
+  <ul class="layui-nav layui-layout-right">
+    <li class="layui-nav-item">
+      <a href="javascript:;">
+        <img src="/imgs/photo.jpg" class="layui-nav-img" th:text="${user.name}" />
+      </a>
+      <dl class="layui-nav-child">
+        <dd><a href="/quit">安全退出</a></dd>
+        <dd><a href="/">返回前台</a></dd>
+      </dl>
+    </li>
+  </ul>
+</div>

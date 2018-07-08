@@ -268,9 +268,12 @@
 	</div>
 <script src="/js/layui.all.js"></script>
 <script src="/js/common.js"></script>
+<script src="/js/commonIndex.js"></script>
 <script type="text/javascript">
 	//登陆弹层
 	$(function() {
+		
+		
 		function registerCallback(res){
 			if(res.status){				
 				layer.msg('恭喜您注册成功!',{icon: 1,time: 2000},function(){layer.closeAll();window.href=location.href;});

@@ -8,42 +8,13 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-  <div class="layui-header">
-    <div class="layui-logo">后台管理首页</div>
-    <ul class="layui-nav layui-layout-right">
-      <li class="layui-nav-item">
-        <a href="javascript:;">
-          <img src="/imgs/photo.jpg" class="layui-nav-img" th:text="${user.name}" />
-        </a>
-        <dl class="layui-nav-child">
-          <dd><a href="/quit">安全退出</a></dd>
-          <dd><a href="/">返回前台</a></dd>
-        </dl>
-      </li>
-    </ul>
-  </div>
-  
-  <div class="layui-side layui-bg-black">
-    <div class="layui-side-scroll" th:if="${not #lists.isEmpty(leftMenu)}">
-      <ul class="layui-nav layui-nav-tree"  lay-filter="test" th:each="menu,index:${leftMenu}">
-        <li  th:class="${index.index eq 0}?'layui-nav-item layui-nav-itemed':'layui-nav-item '">
-          <a class="" href="javascript:;" th:text="${menu.name}"></a>
-          <dl class="layui-nav-child" th:if="${not #lists.isEmpty(menu.plist)}" th:each="pmenu:${menu.plist}">
-            <dd><a href="javascript:;" th:text="${pmenu.name}"></a></dd>
-          </dl>
-        </li>
-      </ul>
-    </div>
-  </div>
-  
+  <div th:replace="header::header"></div>
+  <div th:replace="menu:: leftMenu"></div>
   <div class="layui-body">
     <!-- 内容主体区域 -->
     <div style="padding: 15px;">正在紧张的建设中...</div>
   </div>
-  
-  <div class="layui-footer">
-    © 版权所属XXX
-  </div>
+  <div th:replace="footer:: footer"></div>
 </div>
 <script src="/js/layui.all.js"></script>
 <script>

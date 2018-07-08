@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.druid.util.StringUtils;
+import com.github.pagehelper.PageInfo;
 import com.zhangheng.history.domain.User;
 import com.zhangheng.history.service.MeunService;
 import com.zhangheng.history.service.UserService;
+import com.zhangheng.history.util.LayerPage;
 import com.zhangheng.history.util.RequestContextHolderUtil;
 import com.zhangheng.history.util.ResultEnum;
 
@@ -35,5 +38,36 @@ public class ConsoleController {
 		model.addAttribute("user", userService.findById(uid));
 		model.addAttribute("leftMenu", meunService.foreachLeftMenu());
 		return "console";
+	}
+	/**
+	 * 后台用户主页
+	 * @param pageNum
+	 * @param pageSize
+	 * @param u
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/user/index")
+	public String findUserIndex(Integer pageNum,Integer pageSize,User u,Model model){
+		pageNum = pageNum==null?1:pageNum;
+		pageSize =pageSize==null?10:pageSize;
+		model.addAttribute("userList", userService.findPage(pageNum, pageSize, u));
+		model.addAttribute("leftMenu", meunService.foreachLeftMenu());
+		return "userList";
+	}
+	
+	/**
+	 * 分页查询用户列表
+	 * @param page
+	 * @param limit
+	 * @param u
+	 * @return
+	 */
+	@RequestMapping("/user/list")
+	@ResponseBody
+	public LayerPage<User> findUserPage(Integer page,Integer limit,User u){
+		page = page==null?1:page;
+		limit =limit==null?20:limit;
+		return userService.findPage(page, limit, u);
 	}
 }

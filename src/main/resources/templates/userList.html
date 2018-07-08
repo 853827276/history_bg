@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>后台首页-用户管理</title>
+<link type="text/css" href="/css/layui.css" rel="stylesheet" media="all" />
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="header::header"></div>
+		<div th:replace="menu:: leftMenu"></div>
+		<div class="layui-body">
+			<!-- 用户管理 -->
+			<p class="layui-elem-quote">
+				<a class="layui-btn layui-btn-normal" id="newsDy">用户管理</a>
+			</p>
+			<table class="layui-table"  lay-filter="test">
+			  <thead>
+			    <tr>
+			      <th lay-data="{field:'userName', width:100}">用户名</th>
+			      <th lay-data="{field:'name', width:100}">姓名</th>
+			      <th lay-data="{field:'phone', width:150}">手机</th>
+			      <th lay-data="{field:'email', width:200}">邮箱</th>
+			      <th lay-data="{field:'isAdmin', width:100}">是否是超管</th>
+			      <th lay-data="{field:'status', width:80, sort: true}">状态</th>
+			      <th lay-data="{field:'joinTime', width:160}">注册时间</th>
+			      <th lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}">操作</th>
+			    </tr>
+			  </thead>
+			  <tbody id="pageTable">
+			  	<tr th:each="user:${userList.data}">
+			  		<td th:text="${user.userName}"></td>
+			  		<td th:text="${user.name}"></td>
+			  		<td th:text="${user.phone}"></td>
+			  		<td th:text="${user.email}"></td>
+			  		<td th:text="${user.isAdmin}==1 ?'是':'否'"></td>
+			  		<td th:text="${user.status eq '1'?'可用':'禁用'}"></td>
+			  		<td th:text="${#dates.format(user.joinTime,'yyyy-MM-dd hh:mm:ss')}"></td>
+			  		<td>
+			  			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+ 		 				<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			  		</td>
+			  	</tr>
+			  </tbody>
+			</table>
+ 			<div id="userPage" style="text-align: center;"></div>
+		</div>
+		<div th:replace="footer:: footer"></div>
+	</div>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/layui.all.js"></script>
+	<script src="/js/common.js"></script>
+	<script th:inline="javascript">  
+	/*<![CDATA[*/  
+	    var count = [[${userList.count}]]; 
+	    var limit = 20; //每页显示20条
+	/*]]>*/  
+</script> 
+	<script>
+
+		$(function() {
+			//总页数低于页码总数
+			layui.laypage.render({
+				elem : 'userPage',
+				count : count,
+				limit:limit,
+// 				curr: location.hash.replace('#page=', ''),
+// 				hash: 'page', //自定义hash值
+				jump: function(obj,first){
+			       console.log(obj,first);
+			       if(!first){			    	   
+			       	  ajaxUtil.get(true,'',consoleUserListPath+'?page='+obj.curr+'&amp;pageSize='+limit,pageCallback);	
+			       }
+				}
+			});
+			function pageCallback(res){
+				var html='';
+				$.each(res.data,function(i,user){
+					html +='<tr>';	
+					html +='<td>'+user.userName+'</td>';
+					html +='<td>'+user.name+'</td>';
+					html +='<td>'+user.phone+'</td>';
+					html +='<td>'+user.email+'</td>';
+					var isAdmin = user.isAdmin=='1'?'是':'否';
+					html +='<td>'+isAdmin+'</td>';
+					html +='<td>'+user.status+'</td>';
+					html +='<td>'+formatDate(user.joinTime)+'</td>';
+					html +='<td><a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>';
+					html +='<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>';
+					html +='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>';
+					html +='</tr>';
+				});
+				console.log(html);
+				$('#pageTable').html(html);
+			}
+		});
+	</script>
+</body>
+</html>

@@ -23,4 +23,23 @@
 		delete from user where id =#{id}
 	</delete>
 	
+	<sql id="condition">
+		from user where 1=1 
+		<if test="#u !=null">
+			<if test="#u.id !=null">
+				and id =#{u.id}
+			</if>
+			<if test="#u.name !=null">
+				and name like #{u.name}+'%'
+			</if>
+			<if test="#u.status !=null">
+				and status ==#{u.status}
+			</if>
+		</if>
+	</sql>
+	
+	<select id="findlist" resultType="user" parameterType="user">
+		select * <include refid="condition"></include>
+	</select>
+	
 </mapper>
