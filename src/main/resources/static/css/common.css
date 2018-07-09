@@ -11,7 +11,9 @@ body {
 	height: auto;
 	background: #eaedf1;
 }
-
+.cursor{
+	cursor: pointer;
+}
 .content{
 	width: 100%;
 	height: auto;

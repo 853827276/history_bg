@@ -6,14 +6,15 @@ var domain = document.location.origin+contextPath;
 
 var bgUrl ='http://127.0.0.1:10086/';
 var bgUrl ='/';
-var uploadPath=bgUrl+'upload/file';
-var registerPath=bgUrl+'register';
+var uploadPath=bgUrl+'upload/file?'+new Date().getTime();
+var registerPath=bgUrl+'register?'+new Date().getTime();
 var loginPath=bgUrl+'login';//login/{userName}/{password}
+var addmessagePath=bgUrl+'index/addMessage?'+new Date().getTime();
 
-var carouselPath=bgUrl+'index/carouselList';
-var profilePath=bgUrl+'index/findById';
-var consolePath=bgUrl+'console/index';
-var consoleUserListPath=bgUrl+'console/user/list';
+var carouselPath=bgUrl+'index/carouselList?'+new Date().getTime();
+var profilePath=bgUrl+'index/findById?'+new Date().getTime();
+var consolePath=bgUrl+'console/index?'+new Date().getTime();
+var consoleUserListPath=bgUrl+'console/user/list?'+new Date().getTime();
 
 function formatDate(time){
     var date = new Date(time);
@@ -69,6 +70,9 @@ var ajaxUtil=(function(){
 					callback(res);
 				}
 			});
+		},
+		formPost:function(data,url,callback){
+			$.post(url,data,function(res){callback(res)});
 		}
 	}
 })()

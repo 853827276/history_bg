@@ -15,8 +15,13 @@ public class MessageServiceImpl implements MessageService {
 	private MessageDAO messageDAO;
 
 	@Override
-	public List<Message> querylist(String limit) {
+	public List<Message> querylist(Integer limit) {
 		return messageDAO.querylist(limit);
+	}
+
+	@Override
+	public void save(Message message) {
+		messageDAO.save(message);
 	}
 	
 	

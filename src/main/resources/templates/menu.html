@@ -1,22 +1,4 @@
-<div class="layui-header" th:fragment="header">
-  <div class="layui-logo">后台管理LOGO</div>
-<!--   <ul class="layui-nav layui-layout-left"> -->
-<!--     <li class="layui-nav-item"><a href="/console/index">控制台</a></li> -->
-<!--   </ul> -->
-  <ul class="layui-nav layui-layout-right">
-    <li class="layui-nav-item">
-      <a href="javascript:;">
-        <img src="/imgs/photo.jpg" class="layui-nav-img" th:text="${user.name}" />
-      </a>
-      <dl class="layui-nav-child">
-        <dd><a href="/quit">安全退出</a></dd>
-        <dd><a href="/">返回前台</a></dd>
-      </dl>
-    </li>
-  </ul>
-</div>
-  
-<div class="layui-side layui-bg-black" th:fragment="leftMenu">
+<div class="layui-side layui-bg-black" th:fragment="leftMenu" id="leftMenu">
    <div class="layui-side-scroll" th:if="${not #lists.isEmpty(leftMenu)}">
      <ul class="layui-nav layui-nav-tree"  lay-filter="test" th:each="menu,index:${leftMenu}">
        <li  th:class="${index.index eq 0}?'layui-nav-item layui-nav-itemed':'layui-nav-item '">
@@ -27,8 +9,4 @@
        </li>
      </ul>
    </div>
-</div>
-
-<div class="layui-footer" th:fragment="footer">
-  © 版权所属XXX
 </div>

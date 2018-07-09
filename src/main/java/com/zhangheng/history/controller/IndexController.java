@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zhangheng.history.domain.Message;
 import com.zhangheng.history.domain.User;
 import com.zhangheng.history.service.CarouselService;
 import com.zhangheng.history.service.MessageService;
@@ -16,6 +17,7 @@ import com.zhangheng.history.util.RequestContextHolderUtil;
 import com.zhangheng.history.util.ResultEnum;
 import com.zhangheng.history.util.ResultInfo;
 import com.zhangheng.history.util.ResultUtil;
+import com.zhangheng.history.util.UUIDUtils;
 
 /**
  * 首页请求控制器
@@ -41,7 +43,7 @@ public class IndexController {
 	 */
 	@RequestMapping("/")
 	public String index(Model model){
-		model.addAttribute("messages", messageService.querylist("3"));
+		model.addAttribute("messages", messageService.querylist(5));
 		return "index";
 	}
 	/**
@@ -79,10 +81,26 @@ public class IndexController {
 	public ResultInfo<Object> findById(){
 		String uid = RequestContextHolderUtil.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
 		String redis_uid = (String) redisUtil.get(ResultEnum.USERREDISKEY.getMsg()+uid);
-		if(uid.equals(redis_uid)){
+		if(uid!=null && redis_uid!=null&& uid.equals(redis_uid)){
 			return ResultUtil.success(ResultEnum.SUCCESS,userService.findById(uid));			
 		}else{
 			return ResultUtil.error(ResultEnum.USEREXPIRE);		
 		}
+	}
+	
+	/**
+	 * 添加留言
+	 * @author zhangh
+	 * @date 2018年7月9日上午8:17:43
+	 * @param message
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/index/addMessage")
+	public ResultInfo<Object> addMessage(Message message){
+		message = message==null?new Message():message;
+		message.setId(UUIDUtils.getId());
+		messageService.save(message);
+		return ResultUtil.success(ResultEnum.SUCCESS);	
 	}
 }

@@ -50,7 +50,7 @@ public class ConsoleController {
 	@RequestMapping("/user/index")
 	public String findUserIndex(Integer pageNum,Integer pageSize,User u,Model model){
 		pageNum = pageNum==null?1:pageNum;
-		pageSize =pageSize==null?10:pageSize;
+		pageSize =pageSize==null?20:pageSize;
 		model.addAttribute("userList", userService.findPage(pageNum, pageSize, u));
 		model.addAttribute("leftMenu", meunService.foreachLeftMenu());
 		return "userList";

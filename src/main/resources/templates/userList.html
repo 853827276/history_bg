@@ -53,12 +53,13 @@
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/layui.all.js"></script>
 	<script src="/js/common.js"></script>
+	<script src="/js/menu.js"></script>
 	<script th:inline="javascript">  
-	/*<![CDATA[*/  
-	    var count = [[${userList.count}]]; 
-	    var limit = 20; //每页显示20条
-	/*]]>*/  
-</script> 
+		/*<![CDATA[*/  
+		    var count = [[${userList.count}]]; 
+		    var limit = 20; //每页显示20条
+		/*]]>*/  
+	</script> 
 	<script>
 
 		$(function() {
@@ -70,7 +71,6 @@
 // 				curr: location.hash.replace('#page=', ''),
 // 				hash: 'page', //自定义hash值
 				jump: function(obj,first){
-			       console.log(obj,first);
 			       if(!first){			    	   
 			       	  ajaxUtil.get(true,'',consoleUserListPath+'?page='+obj.curr+'&amp;pageSize='+limit,pageCallback);	
 			       }
@@ -93,10 +93,10 @@
 					html +='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>';
 					html +='</tr>';
 				});
-				console.log(html);
 				$('#pageTable').html(html);
 			}
 		});
 	</script>
+
 </body>
 </html>

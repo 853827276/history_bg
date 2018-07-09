@@ -19,4 +19,12 @@ public interface MenuDAO {
 	 * @return
 	 */
 	public List<Menu> findByPid(String pid);
+	
+	/**
+	 * 保存菜单
+	 * @author zhangh
+	 * @date 2018年7月9日上午8:09:39
+	 * @param menu
+	 */
+	public void save(Menu menu);
 }

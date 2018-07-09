@@ -27,7 +27,9 @@ $(function(){
 		if(res.status){
 			$('#login').hide();
 			$('#register').hide();
-			$('#showInfo').html('<img src="./imgs/photo.jpg" class="layui-nav-img" />退出');
+			$('#profile').show();
+			$('#changePwd').show();
+			$('#showInfo').html('<img src="./imgs/photo.jpg" class="layui-nav-img" />退出<span class="layui-nav-more"></span>');
 			if(res.data.isAdmin=='1'){
 				$('#console').show();
 			}else{
@@ -36,7 +38,11 @@ $(function(){
 		}else{
 			$('#login').show();
 			$('#register').show();
-			$('#showInfo').html('<img src="./imgs/photo.jpg" class="layui-nav-img" />注册');
+			$('#consoleIndex').hide();
+			$('#profile').hide();
+			$('#changePwd').hide();
+			$('#quit').hide();
+			$('#showInfo').html('<img src="./imgs/photo.jpg" class="layui-nav-img" />注册<span class="layui-nav-more"></span>');
 		}
 	}
 });

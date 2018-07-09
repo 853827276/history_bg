@@ -3,11 +3,18 @@
 <mapper namespace="com.zhangheng.history.dao.MessageDAO">
 
 	<select id="querylist" resultType="message">
-		select * from message where 1=1 
-		<if test="# limit !=null">
+		select * from message where 1=1 order by jointime desc
+		<if test="limit ==null">
 			limit 3
+		</if>
+		<if test="limit !=null">
+			limit #{limit}
 		</if>
 	</select>
 
+	<insert id="save" parameterType="message">
+		insert into history.message (id,name, phone, email, sex,content, stares, jointime) 
+		values (#{id},#{name}, #{phone}, #{email}, #{sex},#{content}, #{stares}, now())
+	</insert>
 	
 </mapper>
