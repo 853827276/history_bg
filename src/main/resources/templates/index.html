@@ -25,7 +25,7 @@
 				<dd> <a class="cursor" id="login">登陆</a></dd>
 				<dd> <a class="cursor" id="register">注册</a> </dd>
 				<dd> <a class="cursor" id="consoleIndex">控制台<span class="layui-badge-dot"></span></a> </dd>
-				<dd> <a class="cursor" href="javascript:;" id="profile">查看信息</a> </dd>
+				<dd> <a class="cursor" id="profile">查看信息</a> </dd>
 				<dd> <a class="cursor" id="changePwd">修改密码</a> </dd>
 				<dd> <a class="cursor" href="/quit" id="quit">退出</a> </dd>
 			</dl>
@@ -273,6 +273,32 @@
 				</div>
 			</form>
 		</div>
+		<div id="profileInfoDiv" style="margin-top: 10px;">
+			<div class="layui-form-item">
+				<label class="layui-form-label">账号</label>
+				<div class="layui-form-mid layui-word-aux"><span id="luserName"></span></div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">姓名</label>
+				<div class="layui-form-mid layui-word-aux"><span id="lname"></span></div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">手机</label>
+				<div class="layui-form-mid layui-word-aux"><span id="lphone"></span></div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">邮箱</label>
+				<div class="layui-form-mid layui-word-aux"><span id="lemail"></span></div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">状态</label>
+				<div class="layui-form-mid layui-word-aux"><span id="lstatus"></span></div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">头像</label>
+				<div class="layui-form-mid layui-word-aux" id="lprofile"></div>
+			</div>
+		</div>
 	</div>
 <script src="/js/layui.all.js"></script>
 <script src="/js/common.js"></script>
@@ -421,7 +447,30 @@
 				scrollbar : false
 			});
 		});
-		
+		//查看个人信息
+		$('#profile').click(function(){
+			ajaxUtil.get(true,'',profilePath,profileInfoCallback);
+		});
+		function profileInfoCallback(res){
+			if(res.status){
+				//赋值
+				$('#luserName').html(res.data.userName);
+				$('#lname').html(res.data.name);
+				$('#lphone').html(res.data.phone);
+				$('#lemail').html(res.data.email);
+				var defaultImg = res.data.profile==''?defaultImgUrl:res.data.profile;
+				$('#lprofile').css({"background-image":'url('+defaultImg+')','width':'100px','height':'80px'});
+				$('#lstatus').html(res.data.status=='1'?'正常':'禁用');
+				
+				layer.open({
+					title : '个人信息',
+					type : 1,
+					area : [ '400px', '450px' ],
+					content : $('#profileInfoDiv'),
+					scrollbar : false
+				});
+			}
+		}
 		//添加留言
 		$('#message_button').click(function(){
 			ajaxUtil.post(false,$("#addMessageForm").serialize(),addmessagePath,addMessageCallback);

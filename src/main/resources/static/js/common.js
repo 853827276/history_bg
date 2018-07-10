@@ -1,6 +1,7 @@
 /**
  * 公共的js
  */
+var defaultImgUrl ='/imgs/default.jpg';
 var contextPath='/history/'
 var domain = document.location.origin+contextPath;
 

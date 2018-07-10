@@ -68,11 +68,15 @@
 				elem : 'userPage',
 				count : count,
 				limit:limit,
-// 				curr: location.hash.replace('#page=', ''),
-// 				hash: 'page', //自定义hash值
+				curr: location.hash.replace('#page=', ''),
+				hash: 'page', //自定义hash值
 				jump: function(obj,first){
-			       if(!first){			    	   
-			       	  ajaxUtil.get(true,'',consoleUserListPath+'?page='+obj.curr+'&amp;pageSize='+limit,pageCallback);	
+			       if(!first){	
+			    	  var data={
+		    			  'page':obj.curr,
+		    			  'pageSize':limit
+			    	  };
+			       	  ajaxUtil.get(true,data,consoleUserListPath,pageCallback);	
 			       }
 				}
 			});
