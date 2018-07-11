@@ -64,4 +64,9 @@ public class UserServiceImpl implements UserService {
 		return layerPage;
 	}
 
+	@Override
+	public Integer updatePwd(String id, String oldPwd, String newPwd) {
+		return userDAO.updatePwd(id, oldPwd, newPwd);
+	}
+
 }

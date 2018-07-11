@@ -17,5 +17,7 @@ public interface UserDAO {
 	public User login(@Param("userName") String userName, @Param("password") String password);
 	
 	public List<User> findlist(@Param("u") User u);
+	
+	public Integer updatePwd(@Param("id") String id,@Param("oldPwd") String oldPwd,@Param("newPwd") String newPwd);
 
 }

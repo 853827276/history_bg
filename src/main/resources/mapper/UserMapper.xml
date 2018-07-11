@@ -42,4 +42,8 @@
 		select * <include refid="condition"></include>
 	</select>
 	
+	<update id="updatePwd">
+		update user set password =#{newPwd} where id=#{id} and password=#{oldPwd}
+	</update>
+	
 </mapper>

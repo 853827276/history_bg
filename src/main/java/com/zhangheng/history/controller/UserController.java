@@ -2,7 +2,9 @@ package com.zhangheng.history.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zhangheng.history.domain.User;
@@ -17,5 +19,17 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	/**
+	 * 修改密码
+	 * @author zhangh
+	 * @return 
+	 * @date 2018年7月11日上午8:37:27
+	 */
+	@ResponseBody
+	@RequestMapping("/updatePwd/{uid}")
+	public ResultInfo<Object> updatePwd(@PathVariable String uid,String oldPwd,String newPwd){
+		return ResultUtil.success(ResultEnum.SUCCESS, userService.updatePwd(uid, oldPwd, newPwd));
+	}
 	
 }

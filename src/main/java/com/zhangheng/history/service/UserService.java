@@ -16,4 +16,6 @@ public interface UserService {
 	public void delete(String id);
 	
 	public LayerPage<User> findPage(Integer pageNum,Integer pageSize,User u);
+	
+	public Integer updatePwd(String id,String oldPwd, String newPwd);
 }

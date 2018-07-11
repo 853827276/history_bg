@@ -8,6 +8,7 @@
 <link type="text/css" href="css/common.css" rel="stylesheet" />
 <link type="text/css" href="css/layui.css" rel="stylesheet" media="all" />
 <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.cookie.js"></script>
 <script src="/js/jquery.baiduMap.min.js"></script>
 <script src="/js/map.js"></script>
 </head>
@@ -250,14 +251,14 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">原密码</label>
 					<div class="layui-input-inline">
-						<input type="text" name="username" lay-verify="title"
+						<input type="text" name="oldPwd" id="oldPwd" lay-verify="title"
 							autocomplete="off" placeholder="请输入原密码" class="layui-input"/>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">新密码</label>
 					<div class="layui-input-inline">
-						<input type="text" name="password" lay-verify="required"
+						<input type="text" name="newPwd" id="newPwd" lay-verify="required"
 							placeholder="请输入密码" autocomplete="off" class="layui-input"/>
 					</div>
 				</div>
@@ -266,7 +267,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">确认密码</label>
 						<div class="layui-input-inline">
-							<input type="tel" name="phone" lay-verify="required|phone"
+							<input type="tel" name="confirPwd" id="confirPwd" lay-verify="required|phone"
 								autocomplete="off" class="layui-input"/>
 						</div>
 					</div>
@@ -422,31 +423,44 @@
 				}
 			});
 		});
+		//修改密码
 		$('#changePwd').click(function(){
-			layer.open({
-				title : '修改密码',
-				type : 1,
-				btn:['确认','取消'],
-				id:changePwd,
-				btnAlign: 'c',
-				yes:function(){
-					layer.open({
-						title:'修改密码',
-						content:"密码修改成功！请重新登陆",
-						yes:function(){
-							layer.closeAll();
-						},function(){
-							layer.closeAll();
-						}
-					})
-				},function(){
-					layer.closeAll();
-				},
-				area : [ '400px', '300px' ],
-				content : $('#changePwdDiv'),
-				scrollbar : false
-			});
+			var currentUserCookie = $.cookie('history_cookie_');	
+			if(typeof(currentUserCookie)!=undefined){			
+				layer.open({
+					title : '修改密码',
+					type : 1,
+					btn:['确认','取消'],
+					id:changePwd,
+					btnAlign: 'c',
+					yes:function(){
+						var data={
+							'oldPwd':$('#oldPwd').val(),
+							'newPwd':$('#newPwd').val()
+						};
+						ajaxUtil.get(true,data,updatePwd+currentUserCookie,changePwdCallback);
+					},function(){
+						layer.closeAll();
+					},
+					area : [ '400px', '300px' ],
+					content : $('#changePwdDiv'),
+					scrollbar : false
+				});
+			}else{
+				layer.msg('请您先登陆!',{icon: 1,time: 3000},function(){layer.closeAll();});
+			}
 		});
+		function changePwdCallback(res){
+			if(res.status){
+				var rows = res.data;
+				console.log("rows="+rows);
+				if(rows>0){
+					layer.msg('密码修改成功!请重新登陆',{icon: 1,time: 3000},function(){window.location.href='/quit';});
+				}else{					
+					layer.msg('原密码不正确',{icon: 2,time: 3000});
+				}
+			}
+		}
 		//查看个人信息
 		$('#profile').click(function(){
 			ajaxUtil.get(true,'',profilePath,profileInfoCallback);

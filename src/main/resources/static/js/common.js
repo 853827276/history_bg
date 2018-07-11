@@ -16,6 +16,7 @@ var carouselPath=bgUrl+'index/carouselList?'+new Date().getTime();
 var profilePath=bgUrl+'index/findById?'+new Date().getTime();
 var consolePath=bgUrl+'console/index?'+new Date().getTime();
 var consoleUserListPath=bgUrl+'console/user/list?'+new Date().getTime();
+var updatePwd=bgUrl+'user/updatePwd/';// user/updatePwd/{uid}
 
 function formatDate(time){
     var date = new Date(time);
@@ -34,6 +35,7 @@ function formatDate(time){
                 sec;
     return newTime;         
 }
+
 
 var ajaxUtil=(function(){		
 	return {
