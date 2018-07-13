@@ -43,7 +43,7 @@ public class IndexController {
 	 */
 	@RequestMapping("/")
 	public String index(Model model){
-		model.addAttribute("messages", messageService.querylist(5));
+		model.addAttribute("messages", messageService.queryTop5());
 		return "index";
 	}
 	/**

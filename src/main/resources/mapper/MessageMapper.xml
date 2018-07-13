@@ -3,13 +3,26 @@
 <mapper namespace="com.zhangheng.history.dao.MessageDAO">
 
 	<select id="querylist" resultType="message">
-		select * from message where 1=1 order by jointime desc
-		<if test="limit ==null">
-			limit 3
+		select * from message where 1=1 
+		<if test="message !=null">
+			<if test="message.name !=null">
+				and name like #{message.name}+'%'
+			</if>
+			<if test="message.phone">
+				and phone =#{message.phone}
+			</if>
+			<if test="message.status !=null">
+				and status=#{message.status}
+			</if>
+			<if test="message.status==null">
+				and status =1
+			</if>
 		</if>
-		<if test="limit !=null">
-			limit #{limit}
-		</if>
+		order by jointime desc
+	</select>
+	
+	<select id="queryTop5">
+		select * from message where status==1 order by jointime desc limit 5
 	</select>
 
 	<insert id="save" parameterType="message">

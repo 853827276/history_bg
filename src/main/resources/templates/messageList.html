@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>后台首页-留言管理</title>
+<link type="text/css" href="/css/layui.css" rel="stylesheet" media="all" />
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="header::header"></div>
+		<div th:replace="menu:: leftMenu"></div>
+		<div class="layui-body">
+			<!-- 留言管理 -->
+			<p class="layui-elem-quote">
+				<a class="layui-btn layui-btn-normal" id="newsDy">留言管理</a>
+			</p>
+			<table class="layui-table"  lay-filter="test" style="margin-left: 5px;">
+			  <thead>
+			    <tr>
+			      <th lay-data="{field:'name', width:100}">姓名</th>
+			      <th lay-data="{field:'phone', width:150}">手机</th>
+			      <th lay-data="{field:'email', width:200}">邮箱</th>
+			      <th lay-data="{field:'content', width:100}">内容</th>
+			      <th lay-data="{field:'sex', width:100}">性别</th>
+			      <th lay-data="{field:'status', width:80, sort: true}">状态</th>
+			      <th lay-data="{field:'joinTime', width:160}">注册时间</th>
+			      <th lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}">操作</th>
+			    </tr>
+			  </thead>
+			  <tbody id="pageTable">
+			  	<tr th:each="message:${messageList.data}">
+			  		<td th:text="${message.name}"></td>
+			  		<td th:text="${message.phone}"></td>
+			  		<td th:text="${message.email}"></td>
+			  		<td th:text="${message.content}"></td>
+			  		<td th:text="${message.sex}"></td>
+			  		<td th:text="${message.status =='1'?'可用':'禁用'}"></td>
+			  		<td th:text="${#dates.format(message.joinTime,'yyyy-MM-dd hh:mm:ss')}"></td>
+			  		<td>
+			  			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+ 		 				<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			  		</td>
+			  	</tr>
+			  </tbody>
+			</table>
+ 			<div id="messagePage" style="text-align: center;"></div>
+		</div>
+		<div th:replace="footer:: footer"></div>
+	</div>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/layui.all.js"></script>
+	<script src="/js/common.js"></script>
+	<script src="/js/menu.js"></script>
+	<script th:inline="javascript">  
+		/*<![CDATA[*/  
+		    var count = [[${messageList.count}]]; 
+		    var limit = 20; //每页显示20条
+		/*]]>*/  
+	</script> 
+	<script>
+
+		$(function() {
+			//总页数低于页码总数
+			layui.laypage.render({
+				elem : 'messagePage',
+				count : count,
+				limit:limit,
+				curr: location.hash.replace('#page=', ''),
+				hash: 'page', //自定义hash值
+				jump: function(obj,first){
+			       if(!first){	
+			    	  var data={
+		    			  'page':obj.curr,
+		    			  'pageSize':limit
+			    	  };
+			       	  ajaxUtil.get(true,data,consoleMessageListPath,pageCallback);	
+			       }
+				}
+			});
+			function pageCallback(res){
+				var html='';
+				$.each(res.data,function(i,item){
+					html +='<tr>';	
+					html +='<td>'+item.name+'</td>';
+					html +='<td>'+item.phone+'</td>';
+					html +='<td>'+item.email+'</td>';
+					html +='<td>'+item.content+'</td>';
+					html +='<td>'+item.sex+'</td>';
+					html +='<td>'+item.status+'</td>';
+					html +='<td>'+formatDate(item.joinTime)+'</td>';
+					html +='<td><a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>';
+					html +='<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>';
+					html +='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>';
+					html +='</tr>';
+				});
+				$('#pageTable').html(html);
+			}
+		});
+	</script>
+
+</body>
+</html>
