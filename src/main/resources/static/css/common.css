@@ -34,10 +34,10 @@ body {
 /* 	display: none; */
 }
 .copyRight{
-	color: #00FF00;
+	color: #e8dddd;
 	width: 100%;
-	height: 100px;
-	background-color: #1e5000;
+	height: 150px;
+	background-color: #333;
 	text-align: center;
 }
 .copyRight p{

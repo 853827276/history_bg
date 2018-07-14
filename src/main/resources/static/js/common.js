@@ -18,7 +18,8 @@ var consolePath=bgUrl+'console/index?'+new Date().getTime();
 var consoleUserListPath=bgUrl+'console/user/list?'+new Date().getTime();
 var consoleMessageListPath=bgUrl+'console/message/list?'+new Date().getTime();
 var updatePwd=bgUrl+'user/updatePwd/';// user/updatePwd/{uid}
-
+var consoleAuthorListPath=bgUrl+'/console/author/list'+new Date().getTime();
+var addAuthorPath=bgUrl+'console/author/add';
 function formatDate(time){
     var date = new Date(time);
 

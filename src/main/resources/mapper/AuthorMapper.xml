@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhangheng.history.dao.AuthorDAO">
+
+	<select id="findById" resultType="author">
+		select * from author where id =#{id}
+	</select>
+	
+	<update id="updateStatus">
+		update author set status =#{status} where id=#{id}
+	</update>
+	
+	<insert id="save">
+		insert into author(id,name,sex,photo,remark,titles)
+		values(#{author.id},#{author.name},#{author.sex},#{author.photo},#{author.remark},#{author.titles})
+	</insert>
+	
+	<update id="update" parameterType="author">
+		update author
+		<set>
+		<if test="author !=null">
+			<if test="author.name !=null and author.name !=''">
+				name =#{author.name}
+			</if>
+			<if test="author.sex !=null and author.sex !=''">
+				sex =#{author.sex}
+			</if>
+			<if test="author.remark !=null and author.remark !=''">
+				remark =#{author.remark}
+			</if>
+			<if test="author.titles !=null and author.titles !=''">
+				titles =#{author.titles}
+			</if>
+			<if test="author.photo !=null and author.photo !=''">
+				photo =#{author.photo}
+			</if>
+		</if>
+		</set>
+		where id =#{author.id}
+	</update>
+	
+	<delete id="delete">
+		delete from author where id=#{id}
+	</delete>
+	
+	<select id="findList" resultType="author">
+		select * from author where status =1 
+		<if test="author !=null">
+			<if test="author.name !=null and author.name !=''">
+				and name like #{author.name}+'%'
+			</if>
+		</if>
+	</select>
+	
+</mapper>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>后台首页-作者管理</title>
+<link type="text/css" href="/css/layui.css" rel="stylesheet" media="all" />
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="header::header"></div>
+		<div th:replace="menu:: leftMenu"></div>
+		<div class="layui-body">
+			<!-- 作者管理 -->
+			<p class="layui-elem-quote">
+				<a class="layui-btn layui-btn-normal" id="newsDy">作者管理</a>
+				<a class="layui-btn layui-btn-normal" id="addAuthor" style="float: right;">添加作者</a>
+			</p>
+			<table class="layui-table"  lay-filter="test" style="margin-left: 5px;">
+			  <thead>
+			    <tr>
+			      <th lay-data="{field:'name', width:100}">姓名</th>
+			      <th lay-data="{field:'sex', width:150}">性别</th>
+			      <th lay-data="{field:'photo', width:200}">头像</th>
+			      <th lay-data="{field:'titles', width:100}">职称</th>
+			      <th lay-data="{field:'remark', width:100}">简介</th>
+			      <th lay-data="{field:'status', width:80, sort: true}">状态</th>
+			      <th lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}">操作</th>
+			    </tr>
+			  </thead>
+			  <tbody id="pageTable">
+			  	<tr th:each="author:${authorList.data}">
+			  		<td th:text="${author.name}"></td>
+			  		<td th:text="${author.sex}"></td>
+			  		<td th:text="${author.photo}"></td>
+			  		<td th:text="${author.titles}"></td>
+			  		<td th:text="${author.remark}"></td>
+			  		<td th:text="${author.status =='1'?'可用':'禁用'}"></td>
+			  		<td>
+			  			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+ 		 				<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			  		</td>
+			  	</tr>
+			  </tbody>
+			</table>
+ 			<div id="authorPage" style="text-align: center;"></div>
+		</div>
+		<div th:replace="footer:: footer"></div>
+		<div style="height: 1px;width: 1px; overflow: hidden;">
+			<div id="addAuthorDiv" style="display: none;">
+				<div class="layui-form-item">
+					<label class="layui-form-label">名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="name" id="name" lay-verify="required"
+							autocomplete="off" placeholder="请输入名称" class="layui-input"/>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">性别</label>
+					<div class="layui-input-inline">
+						<input type="text" name="sex" id="sex" lay-verify="required"
+							placeholder="请输入性别" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">职称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="titles" id="titles" lay-verify="required"
+							placeholder="请输入您的职称" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">简介</label>
+						<div class="layui-input-inline">
+							<input type="text" name="remark" id="remark"  class="layui-input"/>
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">头像</label>
+						<button type="button" class="layui-btn" id="uploadPhone"><i class="layui-icon">&#xe67c;</i>选择头像</button>
+						<button type="button" class="layui-btn" id="submit_phone">开始上传</button>
+						<div class="layui-upload-list" style="margin-left: 80px;">
+							<img class="layui-upload-img" id="upload-phone" width="150px" src=""/>
+						</div>
+						<input id="photo" name="photo" type="hidden" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/layui.all.js"></script>
+	<script src="/js/common.js"></script>
+	<script src="/js/menu.js"></script>
+	<script th:inline="javascript">  
+		/*<![CDATA[*/  
+		    var count = [[${authorList.count}]]; 
+		    var limit = 20; //每页显示20条
+		/*]]>*/  
+	</script> 
+	<script>
+		$(function() {
+			//总页数低于页码总数
+			layui.laypage.render({
+				elem : 'authorPage',
+				count : count,
+				limit:limit,
+				curr: location.hash.replace('#page=', ''),
+				hash: 'page', //自定义hash值
+				jump: function(obj,first){
+			       if(!first){	
+			    	  var data={
+		    			  'page':obj.curr,
+		    			  'pageSize':limit
+			    	  };
+			       	  ajaxUtil.get(true,data,consoleAuthorListPath,pageCallback);	
+			       }
+				}
+			});
+			function pageCallback(res){
+				var html='';
+				$.each(res.data,function(i,item){
+					html +='<tr>';	
+					html +='<td>'+item.name+'</td>';
+					html +='<td>'+item.sex+'</td>';
+					html +='<td>'+item.photo+'</td>';
+					html +='<td>'+item.titles+'</td>';
+					html +='<td>'+item.remark+'</td>';
+					html +='<td>'+item.status+'</td>';
+					html +='<td><a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>';
+					html +='<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>';
+					html +='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>';
+					html +='</tr>';
+				});
+				$('#pageTable').html(html);
+			}
+			//拖拽上传
+			layui.upload.render({
+				elem : '#uploadPhone',
+				url : uploadPath,
+				auto:false,
+				choose: function(obj){
+		             console.log(obj)
+		             //预读本地文件示例，不支持ie8
+		             obj.preview(function(index, file, result){
+		                 $('#upload-phone').attr('src', result); //图片链接（base64）
+		             });
+		        },
+		        bindAction: '#submit_phone',
+				done : function(res) {
+					$("#photo").attr('value',res.data.src);
+					return layer.msg('图片上传成功!',{icon: 1,time: 2000});
+				},error:function(){
+					console.log('上传失败');
+				}
+			});
+			
+			//添加作者
+			$('#addAuthor').click(function(){
+				layer.open({
+					title : '添加作者',
+					type : 1,
+					area : [ '500px', '500px' ],
+					content : $('#addAuthorDiv'),
+					id:addAuthor,
+					scrollbar : false,
+					btn:['提交','取消'],
+					btnAlign: 'c',
+					yes:function(){
+						//提交数据
+						var inputData={
+							'name':$('#addAuthorDiv #name').val(),
+							'sex':$('#addAuthorDiv #sex').val(),
+							'titles':$('#addAuthorDiv #titles').val(),
+							'remark':$('#addAuthorDiv #remark').val(),
+							'photo':$('#addAuthorDiv #photo').val()
+						};
+						ajaxUtil.get(false,inputData,addAuthorPath,addAuthorCallback);					
+					},function(){
+						layer.closeAll();
+					}
+				});
+			});
+			function addAuthorCallback(res){
+				if(res.status){				
+					layer.msg('恭喜您添加成功!',{icon: 1,time: 2000},function(){layer.closeAll();window.href=location.href;});
+				}else{
+					layer.msg('很抱歉添加失败，原因：'+res.msg,{icon: 1,time: 2000});
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>
