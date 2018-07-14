@@ -18,15 +18,15 @@
 				and status =1
 			</if>
 		</if>
-		order by jointime desc
+		order by joinTime desc
 	</select>
 	
-	<select id="queryTop5">
-		select * from message where status==1 order by jointime desc limit 5
+	<select id="queryTop5" resultType="message">
+		select * from message where status=1 order by joinTime desc limit 5
 	</select>
 
 	<insert id="save" parameterType="message">
-		insert into history.message (id,name, phone, email, sex,content, stares, jointime) 
+		insert into message (id,name, phone, email, sex,content, stares, joinTime) 
 		values (#{id},#{name}, #{phone}, #{email}, #{sex},#{content}, #{stares}, now())
 	</insert>
 	
