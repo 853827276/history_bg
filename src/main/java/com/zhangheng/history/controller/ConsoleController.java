@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.PageInfo;
 import com.zhangheng.history.domain.User;
+import com.zhangheng.history.service.CarouselService;
 import com.zhangheng.history.service.MeunService;
 import com.zhangheng.history.service.UserService;
 import com.zhangheng.history.util.LayerPage;
@@ -27,7 +28,16 @@ public class ConsoleController {
 	private UserService userService;
 	@Autowired
 	private MeunService meunService;
+	@Autowired
+	private CarouselService carouselService;
 	
+	/**
+	 * 后台管理主页
+	 * @author zhangh
+	 * @date 2018年7月11日上午9:25:14
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/index")
 	public String index(Model model){
 		String uid = RequestContextHolderUtil.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
@@ -69,5 +79,18 @@ public class ConsoleController {
 		page = page==null?1:page;
 		limit =limit==null?20:limit;
 		return userService.findPage(page, limit, u);
+	}
+	/**
+	 * 轮播图首页
+	 * @author zhangh
+	 * @date 2018年7月11日上午9:26:18
+	 */
+	@RequestMapping("/carouse/index")
+	public String carouseIndex(Model model){
+		String uid = RequestContextHolderUtil.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
+		model.addAttribute("user", userService.findById(uid));
+		model.addAttribute("leftMenu", meunService.foreachLeftMenu());
+		model.addAttribute("carouseList", carouselService.queryList());
+		return "carouseList";
 	}
 }

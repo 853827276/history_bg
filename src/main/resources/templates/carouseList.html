@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>后台首页-轮播图管理</title>
+<link type="text/css" href="/css/layui.css" rel="stylesheet" media="all" />
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="header::header"></div>
+		<div th:replace="menu:: leftMenu"></div>
+		<div class="layui-body">
+			<!-- 轮播图管理 -->
+			<p class="layui-elem-quote">
+				<a class="layui-btn layui-btn-normal">轮播图管理</a>
+				<a class="layui-btn layui-btn-normal" id="addCarouse" style="float: right;">添加</a>
+			</p>
+			<table class="layui-table"  lay-filter="test" style="margin-left: 5px;">
+			  <thead>
+			    <tr>
+			      <th lay-data="{field:'title', width:100}">标题</th>
+			      <th lay-data="{field:'url', min-width:300}">图片</th>
+			      <th lay-data="{field:'sort', width:100}">排序</th>
+			      <th lay-data="{field:'status', width:100}">状态</th>
+			      <th lay-data="{field:'joinTime', width:200}">注册时间</th>
+			      <th lay-data="{fixed:'right', width:200, align:'center', toolbar: '#barDemo'}">操作</th>
+			    </tr>
+			  </thead>
+			  <tbody id="pageTable">
+			  	<tr th:each="carouse:${carouseList}">
+			  		<td th:text="${carouse.title}"></td>
+			  		<td class="carouseUrl" th:text="${carouse.url}"></td>
+			  		<td th:text="${carouse.sort}"></td>
+			  		<td th:text="${carouse.status eq '1'?'可用':'禁用'}"></td>
+			  		<td th:text="${#dates.format(carouse.joinTime,'yyyy-MM-dd hh:mm:ss')}"></td>
+			  		<td>
+  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>
+  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button>
+			  		</td>
+			  	</tr>
+			  </tbody>
+			</table>
+ 			<div id="userPage" style="text-align: center;"></div>
+		</div>
+		<div th:replace="footer:: footer"></div>
+	</div>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/layui.all.js"></script>
+	<script src="/js/common.js"></script>
+	<script src="/js/menu.js"></script>
+	<script>
+		$(function(){
+			$('.carouseUrl').each(function(){
+				var html='<div style="width:500px;height:200px;background-image:url('+$(this).text()+');background-size: cover;"></div>';
+				$(this).html(html);
+			});
+		});
+			
+	</script>
+
+</body>
+</html>

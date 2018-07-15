@@ -17,3 +17,17 @@ $('#leftMenu dl dd').each(function(i,v){
 		$(this).addClass('layui-this');
 	}
 });
+
+$('#leftMenu ul li').each(function(i,v){
+	var show =false;
+	$(this).find('dd').each(function(){
+		if($(this).hasClass('layui-this')){
+			show =true;
+		}
+	});
+	if(show){
+		$(this).addClass('layui-nav-item layui-nav-itemed');
+	}else{
+		$(this).addClass('layui-nav-item');
+	}
+});
