@@ -16,17 +16,17 @@
 			<p class="layui-elem-quote">
 				<a class="layui-btn layui-btn-normal" id="newsDy">留言管理</a>
 			</p>
-			<table class="layui-table"  lay-filter="test" style="margin-left: 5px;">
+			<table class="layui-table" style="margin-left: 5px;">
 			  <thead>
 			    <tr>
 			      <th lay-data="{field:'name', width:100}">姓名</th>
 			      <th lay-data="{field:'phone', width:150}">手机</th>
 			      <th lay-data="{field:'email', width:200}">邮箱</th>
-			      <th lay-data="{field:'content', width:100}">内容</th>
-			      <th lay-data="{field:'sex', width:100}">性别</th>
-			      <th lay-data="{field:'status', width:80, sort: true}">状态</th>
-			      <th lay-data="{field:'joinTime', width:160}">注册时间</th>
-			      <th lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}">操作</th>
+			      <th lay-data="{field:'content',max-width:200}">内容</th>
+			      <th lay-data="{field:'sex', width:150}">性别</th>
+			      <th lay-data="{field:'status', width:150}">状态</th>
+			      <th lay-data="{field:'joinTime', width:200}">添加时间</th>
+			      <th lay-data="{width:200, align:'center'}">操作</th>
 			    </tr>
 			  </thead>
 			  <tbody id="pageTable">
@@ -37,11 +37,9 @@
 			  		<td th:text="${message.content}"></td>
 			  		<td th:text="${message.sex}"></td>
 			  		<td th:text="${message.status =='1'?'可用':'禁用'}"></td>
-			  		<td th:text="${#dates.format(message.joinTime,'yyyy-MM-dd hh:mm:ss')}"></td>
+			  		<td th:text="${#dates.format(message.joinTime,'yyyy-MM-dd HH:mm:ss')}"></td>
 			  		<td>
-			  			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
- 		 				<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button>
 			  		</td>
 			  	</tr>
 			  </tbody>
@@ -91,9 +89,7 @@
 					html +='<td>'+item.sex+'</td>';
 					html +='<td>'+item.status+'</td>';
 					html +='<td>'+formatDate(item.joinTime)+'</td>';
-					html +='<td><a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>';
-					html +='<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>';
-					html +='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>';
+					html +='<td><button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button></td>';
 					html +='</tr>';
 				});
 				$('#pageTable').html(html);
