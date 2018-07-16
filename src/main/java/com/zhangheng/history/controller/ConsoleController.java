@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.PageInfo;
+import com.zhangheng.history.domain.Message;
 import com.zhangheng.history.domain.User;
 import com.zhangheng.history.service.CarouselService;
+import com.zhangheng.history.service.MessageService;
 import com.zhangheng.history.service.MeunService;
 import com.zhangheng.history.service.UserService;
 import com.zhangheng.history.util.LayerPage;
@@ -30,6 +32,8 @@ public class ConsoleController {
 	private MeunService meunService;
 	@Autowired
 	private CarouselService carouselService;
+	@Autowired
+	private MessageService messageService;
 	
 	/**
 	 * 后台管理主页
@@ -38,6 +42,7 @@ public class ConsoleController {
 	 * @param model
 	 * @return
 	 */
+	
 	@RequestMapping("/index")
 	public String index(Model model){
 		String uid = RequestContextHolderUtil.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
@@ -92,5 +97,39 @@ public class ConsoleController {
 		model.addAttribute("leftMenu", meunService.foreachLeftMenu());
 		model.addAttribute("carouseList", carouselService.queryList());
 		return "carouseList";
+	}
+	
+	/**
+	 * 后台消息首页
+	 * @param pageNum
+	 * @param pageSize
+	 * @param u
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/message/index")
+	public String findMessageIndex(Integer pageNum,Integer pageSize,Message message,Model model){
+		String uid = RequestContextHolderUtil.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
+		pageNum = pageNum==null?1:pageNum;
+		pageSize =pageSize==null?20:pageSize;
+		model.addAttribute("messageList", messageService.findPage(pageNum, pageSize, message));
+		model.addAttribute("user", userService.findById(uid));
+		model.addAttribute("leftMenu", meunService.foreachLeftMenu());
+		return "messageList";
+	}
+	
+	/**
+	 * 分页查询留言
+	 * @param page
+	 * @param limit
+	 * @param u
+	 * @return
+	 */
+	@RequestMapping("/message/list")
+	@ResponseBody
+	public LayerPage<Message> findMessagePage(Integer page,Integer limit,Message message){
+		page = page==null?1:page;
+		limit =limit==null?20:limit;
+		return messageService.findPage(page, limit, message);
 	}
 }

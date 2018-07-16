@@ -17,6 +17,7 @@ public class Message implements Serializable{
 	private String content;
 	private String stares;
 	private Date joinTime;
+	private String status;
 	public String getId() {
 		return id;
 	}
@@ -64,6 +65,12 @@ public class Message implements Serializable{
 	}
 	public void setJoinTime(Date joinTime) {
 		this.joinTime = joinTime;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

@@ -8,7 +8,13 @@ import com.zhangheng.history.domain.Message;
 
 public interface MessageDAO {
 
-	public List<Message> querylist(@Param("limit") Integer limit);
+	public List<Message> querylist(@Param("message")Message message);
+	
+	/**
+	 * 查出最新的五条数据
+	 * @return
+	 */
+	public List<Message> queryTop5();
 	
 	/**
 	 * 保存数据
