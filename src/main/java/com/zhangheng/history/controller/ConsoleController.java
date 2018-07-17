@@ -12,6 +12,7 @@ import com.zhangheng.history.domain.Author;
 import com.zhangheng.history.domain.Message;
 import com.zhangheng.history.domain.User;
 import com.zhangheng.history.service.AuthorService;
+import com.zhangheng.history.service.CarouselService;
 import com.zhangheng.history.service.MessageService;
 import com.zhangheng.history.service.MeunService;
 import com.zhangheng.history.service.UserService;
@@ -37,6 +38,8 @@ public class ConsoleController {
 	private MeunService meunService;
 	@Autowired
 	private AuthorService authorService;
+	@Autowired
+	private CarouselService carouselService;
 	@Autowired
 	private MessageService messageService;
 
@@ -88,6 +91,19 @@ public class ConsoleController {
 		page = page == null ? 1 : page;
 		limit = limit == null ? 20 : limit;
 		return userService.findPage(page, limit, u);
+	}
+	/**
+	 * 轮播图首页
+	 * @author zhangh
+	 * @date 2018年7月11日上午9:26:18
+	 */
+	@RequestMapping("/carouse/index")
+	public String carouseIndex(Model model){
+		String uid = RequestContextHolderUtil.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
+		model.addAttribute("user", userService.findById(uid));
+		model.addAttribute("leftMenu", meunService.foreachLeftMenu());
+		model.addAttribute("carouseList", carouselService.queryList());
+		return "carouseList";
 	}
 
 	/**

@@ -38,9 +38,8 @@
 			  		<td th:text="${author.remark}"></td>
 			  		<td th:text="${author.status =='1'?'可用':'禁用'}"></td>
 			  		<td>
-			  			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
- 		 				<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>
+  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button>
 			  		</td>
 			  	</tr>
 			  </tbody>
@@ -49,7 +48,7 @@
 		</div>
 		<div th:replace="footer:: footer"></div>
 		<div style="height: 1px;width: 1px; overflow: hidden;">
-			<div id="addAuthorDiv" style="display: none;">
+			<div id="addAuthorDiv" style="display: none;margin-top: 5px;">
 				<div class="layui-form-item">
 					<label class="layui-form-label">名称</label>
 					<div class="layui-input-inline">

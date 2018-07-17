@@ -19,6 +19,7 @@ public class Carousel implements Serializable{
 	private Integer sort;
 	private String status;
 	private Date joinTime;
+	private String title;
 	public String getId() {
 		return id;
 	}
@@ -48,6 +49,12 @@ public class Carousel implements Serializable{
 	}
 	public void setJoinTime(Date joinTime) {
 		this.joinTime = joinTime;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	

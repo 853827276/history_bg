@@ -39,9 +39,8 @@
 			  		<td th:text="${user.status eq '1'?'可用':'禁用'}"></td>
 			  		<td th:text="${#dates.format(user.joinTime,'yyyy-MM-dd hh:mm:ss')}"></td>
 			  		<td>
-			  			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
- 		 				<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>
+  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button>
 			  		</td>
 			  	</tr>
 			  </tbody>
@@ -92,9 +91,8 @@
 					html +='<td>'+isAdmin+'</td>';
 					html +='<td>'+user.status+'</td>';
 					html +='<td>'+formatDate(user.joinTime)+'</td>';
-					html +='<td><a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>';
-					html +='<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>';
-					html +='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>';
+					html +='<td><button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>';
+					html +='<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button></td>';
 					html +='</tr>';
 				});
 				$('#pageTable').html(html);
