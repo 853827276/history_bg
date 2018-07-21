@@ -8,6 +8,8 @@ package com.zhangheng.history.util;
  */
 public enum ResultEnum {
 	
+	WINDOWUPLOADPATH(1,"D:/upload/"),
+	LINUXUPLOADPATH(2,"/images/"),
 	/**
 	 * 菜单的默认PID
 	 */

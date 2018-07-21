@@ -33,6 +33,13 @@ public class StringUtil {
 	public static boolean isNotEmpty(String str){
 		return str!=null&&str.length()>0?true:false;
 	}
+	/** 
+	* 判断是linux系统还是其他系统 
+	* 如果是Linux系统，返回true，否则返回false 
+	*/ 
+	public static boolean isLinux() { 
+		return System.getProperty("os.name").toLowerCase().indexOf("linux") >= 0; 
+	}
 	/*public static void main(String[] args) {
 		System.out.println(getHour("00：00：00")+"-"+getMinuter("00：00：00")+"-"+getSecond("00：00：00"));
 	}*/

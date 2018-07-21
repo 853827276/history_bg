@@ -16,6 +16,7 @@ import com.zhangheng.history.util.FileUtil;
 import com.zhangheng.history.util.ResultEnum;
 import com.zhangheng.history.util.ResultInfo;
 import com.zhangheng.history.util.ResultUtil;
+import com.zhangheng.history.util.StringUtil;
 
 @RestController
 @RequestMapping("/upload/")
@@ -27,7 +28,8 @@ public class UploadController {
 //    	response.setHeader("Access-Control-Allow-Origin", "*"); 
         //String contentType = file.getContentType();
         String fileName = file.getOriginalFilename();
-        String filePath = "D:/upload/";
+        String filePath = StringUtil.isLinux()?ResultEnum.LINUXUPLOADPATH.getMsg():ResultEnum.WINDOWUPLOADPATH.getMsg();
+//        String filePath = ResultEnum.LINUXUPLOADPATH.getMsg();
         try {
             FileUtil.uploadFile(file.getBytes(), filePath, fileName);
         } catch (Exception e) {

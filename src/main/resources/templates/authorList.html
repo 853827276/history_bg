@@ -33,7 +33,7 @@
 			  	<tr th:each="author:${authorList.data}">
 			  		<td th:text="${author.name}"></td>
 			  		<td th:text="${author.sex}"></td>
-			  		<td th:text="${author.photo}"></td>
+			  		<td ><img alt="头像" src="" th:src="'http://154.8.141.51'+${author.photo}" /></td>
 			  		<td th:text="${author.titles}"></td>
 			  		<td th:text="${author.remark}"></td>
 			  		<td th:text="${author.status =='1'?'可用':'禁用'}"></td>
