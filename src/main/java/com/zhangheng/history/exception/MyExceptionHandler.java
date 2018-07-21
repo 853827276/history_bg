@@ -8,7 +8,7 @@ import com.zhangheng.history.util.ResultEnum;
 import com.zhangheng.history.util.ResultInfo;
 import com.zhangheng.history.util.ResultUtil;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class MyExceptionHandler {
 
 	/**

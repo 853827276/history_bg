@@ -15,7 +15,7 @@ import com.zhangheng.history.util.LayerPage;
 import com.zhangheng.history.util.UUIDUtils;
 
 @Service("userService")
-//@CacheConfig(cacheNames = "users")
+@CacheConfig(cacheNames="{user}")
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Cacheable(value="[user]",key = "#p0")
+	@Cacheable(key = "#id")
 	public User findById(String id) {
 		return userDAO.findByID(id);
 	}

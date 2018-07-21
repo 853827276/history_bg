@@ -4,10 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable{
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3299238300493641387L;
+	/**
+	 * 
+	 */
 	private String id;
 	private String userName;
 	private String password;
@@ -107,4 +111,8 @@ public class User implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public User() {
+	}
+	
 }
