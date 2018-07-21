@@ -1,6 +1,8 @@
 package com.zhangheng.history.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
@@ -13,7 +15,7 @@ import com.zhangheng.history.util.LayerPage;
 import com.zhangheng.history.util.UUIDUtils;
 
 @Service("userService")
-//@CacheConfig(cacheNames = "users")
+@CacheConfig(cacheNames = "users")
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-//	@Cacheable(key = "#p0")
+	@Cacheable(key = "#p0")
 	public User findById(String id) {
 		return userDAO.findByID(id);
 	}
