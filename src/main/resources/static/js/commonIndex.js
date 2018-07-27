@@ -48,7 +48,7 @@ $(function(){
 });
 
 
-/*new BaiduMap({
+new BaiduMap({
 	id : "map",
 	title : {
 		text : "沈阳师范大学",
@@ -72,4 +72,4 @@ $(function(){
 		width : 36,
 		height : 36
 	}
-});*/
+});
