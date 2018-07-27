@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title>后台首页-添加内容</title>
+<link type="text/css" href="/css/layui.css" rel="stylesheet" media="all" />
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="header::header"></div>
+		<div th:replace="menu:: leftMenu"></div>
+		<div class="layui-body">
+			<!-- 添加内容 -->
+			<p class="layui-elem-quote">
+				<a class="layui-btn layui-btn-normal" id="addCarouse" >添加内容</a>
+			</p>
+			<form class="layui-form" action=""  >
+			    <div class="layui-form-item">
+				    <label class="layui-form-label">作者</label>
+				    <div class="layui-input-block">
+				      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input"/>
+				    </div>
+			    </div>
+		    	<div class="layui-form-item " style="width: 99%;">
+				    <label class="layui-form-label">内容</label>
+				    <div class="layui-input-block">
+				       	<!-- 加载编辑器的容器 -->
+		    			<script id="addContent" name="content" type="text/plain">请输入内容</script>
+				    </div>
+		  		</div>
+			</form>			
+		</div>
+		<div th:replace="footer:: footer"></div>
+	</div>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/layui.all.js"></script>
+	<script src="/js/common.js"></script>
+	<script src="/js/menu.js"></script>
+	<script src="/js/ueditor.config.js"></script>
+	<script src="/js/ueditor.all.js"></script>
+	<script>
+		$(function() {
+			var ue = UE.getEditor('addContent');
+		});
+	</script>
+
+</body>
+</html>

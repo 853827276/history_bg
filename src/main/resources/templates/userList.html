@@ -16,34 +16,44 @@
 			<p class="layui-elem-quote">
 				<a class="layui-btn layui-btn-normal" id="newsDy">用户管理</a>
 			</p>
-			<table class="layui-table"  lay-filter="test" style="margin-left: 5px;">
-			  <thead>
-			    <tr>
-			      <th lay-data="{field:'userName', width:100}">用户名</th>
-			      <th lay-data="{field:'name', width:100}">姓名</th>
-			      <th lay-data="{field:'phone', width:150}">手机</th>
-			      <th lay-data="{field:'email', width:200}">邮箱</th>
-			      <th lay-data="{field:'isAdmin', width:100}">是否是超管</th>
-			      <th lay-data="{field:'status', width:80, sort: true}">状态</th>
-			      <th lay-data="{field:'joinTime', width:160}">注册时间</th>
-			      <th lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}">操作</th>
-			    </tr>
-			  </thead>
-			  <tbody id="pageTable">
-			  	<tr th:each="user:${userList.data}">
-			  		<td th:text="${user.userName}"></td>
-			  		<td th:text="${user.name}"></td>
-			  		<td th:text="${user.phone}"></td>
-			  		<td th:text="${user.email}"></td>
-			  		<td th:text="${user.isAdmin}==1 ?'是':'否'"></td>
-			  		<td th:text="${user.status eq '1'?'可用':'禁用'}"></td>
-			  		<td th:text="${#dates.format(user.joinTime,'yyyy-MM-dd hh:mm:ss')}"></td>
-			  		<td>
-  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>
-  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button>
-			  		</td>
-			  	</tr>
-			  </tbody>
+			<table class="layui-table" lay-even="" lay-skin="row" style="margin-left: 5px;">
+				<colgroup>
+					<col width="150"/>
+					<col width="100"/>
+					<col width="100"/>
+					<col width="200"/>
+					<col width="120"/>
+					<col width="100"/>
+					<col width="200"/>
+					<col />
+				</colgroup>
+				<thead>
+					<tr>
+				      <th lay-data="{field:'userName'}">用户名</th>
+				      <th lay-data="{field:'name'}">姓名</th>
+				      <th lay-data="{field:'phone'}">手机</th>
+				      <th lay-data="{field:'email'}">邮箱</th>
+				      <th lay-data="{field:'isAdmin'}">是否是超管</th>
+				      <th lay-data="{field:'status', sort: true}">状态</th>
+				      <th lay-data="{field:'joinTime'}">注册时间</th>
+				      <th lay-data="{fixed: 'right', align:'center', toolbar: '#barDemo'}">操作</th>
+				    </tr>
+				</thead>
+			  	<tbody id="pageTable">
+				  	<tr th:each="user:${userList.data}">
+				  		<td th:text="${user.userName}"></td>
+				  		<td th:text="${user.name}"></td>
+				  		<td th:text="${user.phone}"></td>
+				  		<td th:text="${user.email}"></td>
+				  		<td th:text="${user.isAdmin}==1 ?'是':'否'"></td>
+				  		<td th:text="${user.status eq '1'?'可用':'禁用'}"></td>
+				  		<td th:text="${#dates.format(user.joinTime,'yyyy-MM-dd hh:mm:ss')}"></td>
+				  		<td>
+	  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>
+	  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button>
+				  		</td>
+				  	</tr>
+			  	</tbody>
 			</table>
  			<div id="userPage" style="text-align: center;"></div>
 		</div>
@@ -89,7 +99,8 @@
 					html +='<td>'+user.email+'</td>';
 					var isAdmin = user.isAdmin=='1'?'是':'否';
 					html +='<td>'+isAdmin+'</td>';
-					html +='<td>'+user.status+'</td>';
+					var status=user.status == '1'?'可用':'禁用';
+					html +='<td>'+status+'</td>';
 					html +='<td>'+formatDate(user.joinTime)+'</td>';
 					html +='<td><button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>';
 					html +='<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button></td>';

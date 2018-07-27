@@ -158,8 +158,7 @@ public class ConsoleController {
 	@RequestMapping("/author/index")
 	public String findAuthorIndex(Integer pageNum, Integer pageSize,
 			Author author, Model model) {
-		String uid = RequestContextHolderUtil
-				.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
+		String uid = RequestContextHolderUtil.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
 		pageNum = pageNum == null ? 1 : pageNum;
 		pageSize = pageSize == null ? 20 : pageSize;
 		model.addAttribute("authorList",
@@ -222,5 +221,18 @@ public class ConsoleController {
 	public ResultInfo<Object> findAuthor(@PathVariable String id) {
 		return ResultUtil.success(ResultEnum.SUCCESS,
 				authorService.findById(id));
+	}
+	
+	/**
+	 * 添加资料页面
+	 * @author zhangh
+	 * @date 2018年7月25日上午9:03:37
+	 */
+	@RequestMapping("/gotoAddMterial")
+	public String gotoAddMterial(Model model){
+		String uid = RequestContextHolderUtil.getCookieValue(ResultEnum.USERCOOKIEKEY.getMsg());
+		model.addAttribute("user", userService.findById(uid));
+		model.addAttribute("leftMenu", meunService.foreachLeftMenu());
+		return "addMterial";
 	}
 }
