@@ -29,7 +29,7 @@ $(function(){
 			$('#register').hide();
 			$('#profile').show();
 			$('#changePwd').show();
-			$('#showInfo').html('<img src="./imgs/photo.jpg" class="layui-nav-img" />退出<span class="layui-nav-more"></span>');
+			$('#showInfo').html('<img src="/imgs/photo.jpg" class="layui-nav-img" />退出<span class="layui-nav-more"></span>');
 			if(res.data.isAdmin=='1'){
 				$('#console').show();
 			}else{
@@ -42,13 +42,13 @@ $(function(){
 			$('#profile').hide();
 			$('#changePwd').hide();
 			$('#quit').hide();
-			$('#showInfo').html('<img src="./imgs/photo.jpg" class="layui-nav-img" />注册<span class="layui-nav-more"></span>');
+			$('#showInfo').html('<img src="/imgs/photo.jpg" class="layui-nav-img" />注册<span class="layui-nav-more"></span>');
 		}
 	}
 });
 
 
-/*new BaiduMap({
+new BaiduMap({
 	id : "map",
 	title : {
 		text : "沈阳师范大学",
@@ -68,8 +68,8 @@ $(function(){
 	width : 320,
 	height : 70,
 	icon : {
-		url : "./imgs/icon.png",
+		url : "/imgs/icon.png",
 		width : 36,
 		height : 36
 	}
-});*/
+});

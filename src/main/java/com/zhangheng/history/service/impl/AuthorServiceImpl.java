@@ -11,7 +11,6 @@ import com.github.pagehelper.PageInfo;
 import com.zhangheng.history.dao.AuthorDAO;
 import com.zhangheng.history.domain.Author;
 import com.zhangheng.history.domain.Message;
-import com.zhangheng.history.domain.User;
 import com.zhangheng.history.service.AuthorService;
 import com.zhangheng.history.util.LayerPage;
 

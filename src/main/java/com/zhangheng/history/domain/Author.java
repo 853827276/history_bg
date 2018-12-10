@@ -1,7 +1,13 @@
 package com.zhangheng.history.domain;
 
-public class Author {
+import java.io.Serializable;
 
+public class Author implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8739590185826017834L;
 	private String id;
 	private String name;
 	private String sex;

@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>首页</title>
-<link type="text/css" href="css/common.css" rel="stylesheet" />
-<link type="text/css" href="css/layui.css" rel="stylesheet" media="all" />
+<link type="text/css" href="/css/common.css" rel="stylesheet" />
+<link type="text/css" href="/css/layui.css" rel="stylesheet" media="all" />
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/jquery.baiduMap.min.js"></script>
@@ -21,14 +21,14 @@
 		<li class="layui-nav-item layui-col-md1"><a href="#newsDy">新闻动态</a></li>
 		<li class="layui-nav-item layui-col-md1"><a href="#latestNews">最新留言<span class="layui-badge">5</span></a></li>
 		<li class="layui-nav-item" lay-unselect="">
-			<a href="javascript:;" id="showInfo"><img src="./imgs/photo.jpg" class="layui-nav-img" />注册</a>
+			<a href="javascript:;" id="showInfo"><img src="/imgs/photo.jpg" class="layui-nav-img" />注册</a>
 			<dl class="layui-nav-child">
 				<dd> <a class="cursor" id="login">登陆</a></dd>
 				<dd> <a class="cursor" id="register">注册</a> </dd>
 				<dd> <a class="cursor" id="consoleIndex">控制台<span class="layui-badge-dot"></span></a> </dd>
 				<dd> <a class="cursor" id="profile">查看信息</a> </dd>
 				<dd> <a class="cursor" id="changePwd">修改密码</a> </dd>
-				<dd> <a class="cursor" href="/quit" id="quit">退出</a> </dd>
+				<dd> <a class="cursor" href="/index/quit" id="quit">退出</a> </dd>
 			</dl>
 		</li>
 	</ul>
@@ -43,38 +43,12 @@
 		<a class="layui-btn layui-btn-normal" id="newsDy">新闻动态</a>
 	</p>
 	<ul class="layui-timeline">
-		<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis"></i>
+		<li class="layui-timeline-item" th:each="latestNews:${latestNews}">
+			<i class="layui-icon layui-timeline-axis"></i>
 			<div class="layui-timeline-content layui-text">
-				<div class="layui-timeline-title">至今 我准备奔向月球，开辟人类的新大陆</div>
-			</div></li>
-		<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis"></i>
-			<div class="layui-timeline-content layui-text">
-				<div class="layui-timeline-title">2017年 我平平淡淡的</div>
-			</div></li>
-		<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis"></i>
-			<div class="layui-timeline-content layui-text">
-				<div class="layui-timeline-title">2016年 我的身价100亿美元</div>
-			</div></li>
-		<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis"></i>
-			<div class="layui-timeline-content layui-text">
-				<div class="layui-timeline-title">2015年 我再纽交所成功上市</div>
-			</div></li>
-		<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis"></i>
-			<div class="layui-timeline-content layui-text">
-				<div class="layui-timeline-title">2014年 我进军乔布斯风云网</div>
-			</div></li>
-		<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis"></i>
-			<div class="layui-timeline-content layui-text">
-				<div class="layui-timeline-title">2013年 我创建了全国23个连锁店</div>
-			</div></li>
-		<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis"></i>
-			<div class="layui-timeline-content layui-text">
-				<div class="layui-timeline-title">2012年，我已经有100个用户</div>
-			</div></li>
-		<li class="layui-timeline-item"><i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i>
-			<div class="layui-timeline-content layui-text">
-				<div class="layui-timeline-title">2011年，我刚诞生</div>
-			</div></li>
+				<div class="layui-timeline-title" th:text="${latestNews.content}"></div>
+			</div>
+		</li>
 	</ul>
 	<!-- 	最近留言 -->
 	<p class="layui-elem-quote">
@@ -111,59 +85,62 @@
 		</tbody>
 	</table>
 	<!-- 欢迎留言 -->
-	<p class="layui-elem-quote"><a class="layui-btn layui-btn-normal">欢迎留言</a></p>  
-	<form class="layui-form" id="addMessageForm" style="margin-top: 10px;">
-		<div class="layui-form-item">
-			<label class="layui-form-label">您的姓名:</label>
-			<div class="layui-input-block">
-				<input type="text" name="name" lay-verify="title"
-					autocomplete="off" placeholder="请输入您的姓名" class="layui-input"/>
+	<div class="wel_receive">	
+		<p class="layui-elem-quote"><a class="layui-btn layui-btn-normal">欢迎留言</a></p>  
+		<form class="layui-form" id="addMessageForm" style="margin-top: 10px;">
+			<div class="layui-form-item">
+				<label class="layui-form-label">您的姓名:</label>
+				<div class="layui-input-block">
+					<input type="text" name="name" lay-verify="title"
+						autocomplete="off" placeholder="请输入您的姓名" class="layui-input"/>
+				</div>
 			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">您的手机:</label>
-			<div class="layui-input-block">
-				<input type="text" name="phone" lay-verify="required"
-					placeholder="请输入您的手机" autocomplete="off" class="layui-input"/>
+			<div class="layui-form-item">
+				<label class="layui-form-label">您的手机:</label>
+				<div class="layui-input-block">
+					<input type="text" name="phone" lay-verify="required"
+						placeholder="请输入您的手机" autocomplete="off" class="layui-input"/>
+				</div>
 			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">您的邮箱:</label>
-			<div class="layui-input-block">
-				<input type="text" name="email" lay-verify="required"
-					placeholder="请输入您的邮箱" autocomplete="off" class="layui-input"/>
+			<div class="layui-form-item">
+				<label class="layui-form-label">您的邮箱:</label>
+				<div class="layui-input-block">
+					<input type="text" name="email" lay-verify="required"
+						placeholder="请输入您的邮箱" autocomplete="off" class="layui-input"/>
+				</div>
 			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">您的性别</label>
-			<div class="layui-input-block">
-				<input type="radio" name="sex" value="男" title="男" checked=""/>
-				<input type="radio" name="sex" value="女" title="女"/> 
+			<div class="layui-form-item">
+				<label class="layui-form-label">您的性别</label>
+				<div class="layui-input-block">
+					<input type="radio" name="sex" value="男" title="男" checked=""/>
+					<input type="radio" name="sex" value="女" title="女"/> 
+				</div>
 			</div>
-		</div>
-		
-		<div class="layui-form-item">
-			<label class="layui-form-label">您的评价</label>
-			<div class="layui-input-block">
-				<input type="hidden" name="stares" id="stares" value="2"/>
-				<div id="pingfen" class='pingfen'></div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">您的评价</label>
+				<div class="layui-input-block">
+					<input type="hidden" name="stares" id="stares" value="2"/>
+					<div id="pingfen" class='pingfen'></div>
+				</div>
 			</div>
-		</div>
-		<div class="layui-form-item layui-form-text">
-			<label class="layui-form-label">您的留言:</label>
-			<div class="layui-input-block">
-				<textarea placeholder="请输入您的留言内容" class="layui-textarea" name="content"></textarea>
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label">您的留言:</label>
+				<div class="layui-input-block">
+					<textarea placeholder="请输入您的留言内容" class="layui-textarea" name="content"></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="layui-form-item" style="margin-left: 5.8%;">
-			<a class="layui-btn" id="message_button">提交</a>
-			<a class="layui-btn" id="message_reset">重填</a>
-		</div>
-	</form>
-	<div class="content">
-	<p class="layui-elem-quote"><a class="layui-btn layui-btn-normal">我的位置</a></p>
+			<div class="layui-form-item" style="margin-left: 5.8%;">
+				<a class="layui-btn" id="message_button">提交</a>
+				<a class="layui-btn" id="message_reset">重填</a>
+			</div>
+		</form>
+	</div>
+	<div class="content map_div">
+		<p class="layui-elem-quote"><a class="layui-btn layui-btn-normal">我的位置</a></p>
 		<div id="map" class="map"></div>
 	</div>
+	<div class="clear"></div>
 	<!-- 版权 -->
 	<div class="copyRight">
 		<p>联系方式：666666@163.com | 监督电话：16666666666</p>
@@ -174,13 +151,13 @@
 			<form class="layui-form" action="" style="margin-top: 10px;">
 				<div class="layui-form-item">
 					<label class="layui-form-label">账号</label>
-					<div class="layui-input-inline" style="width: 60%;">
+					<div class="layui-input-inline" style="width: 45%;">
 						<input type="text" name="username" id="login_username" autocomplete="off" placeholder="请输入用户名" class="layui-input"/>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">密码</label>
-					<div class="layui-input-inline" style="width: 60%;">
+					<div class="layui-input-inline" style="width: 45%;">
 						<input type="password" name="password" id="login_password" lay-verify="required"
 							placeholder="请输入密码" autocomplete="off" class="layui-input"/>
 					</div>
@@ -384,7 +361,7 @@
 			layer.open({
 				title : '登陆',
 				type : 1,
-				area : [ '30%', '220px' ],
+				area : [ '20%', '220px' ],
 				content : $('#loginDiv'),
 				id:login,
 				scrollbar : false,

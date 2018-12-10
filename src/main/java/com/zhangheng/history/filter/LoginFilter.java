@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.zhangheng.history.util.RedisUtil;
+import com.zhangheng.history.redis.RedisUtil;
 import com.zhangheng.history.util.RequestContextHolderUtil;
 import com.zhangheng.history.util.ResultEnum;
 
@@ -25,7 +25,7 @@ import com.zhangheng.history.util.ResultEnum;
  *
  */
 //@Component
-@WebFilter(urlPatterns="[/console/*]",filterName="loginFilter")
+//@WebFilter(urlPatterns="[/console/*]",filterName="loginFilter")
 public class LoginFilter implements Filter {
 	@Autowired
 	private RedisUtil redisUtil;
@@ -45,7 +45,7 @@ public class LoginFilter implements Filter {
 		if(uid!=null && redis_uid!=null &&redis_uid.equals(uid)){			
 			arg2.doFilter(request, response);
 		}else{
-			response.sendRedirect("/");
+			response.sendRedirect("/index/");
 		}
 	}
 

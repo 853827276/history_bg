@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zhangheng.history.domain.User;
+import com.zhangheng.history.redis.RedisUtil;
 import com.zhangheng.history.service.UserService;
-import com.zhangheng.history.util.RedisUtil;
 import com.zhangheng.history.util.RequestContextHolderUtil;
 import com.zhangheng.history.util.ResultEnum;
 import com.zhangheng.history.util.ResultInfo;
@@ -40,7 +40,7 @@ public class LoginController {
 		 if(u!=null){
 			 RequestContextHolderUtil.setCookieValue(ResultEnum.USERCOOKIEKEY.getMsg(), u.getId(), -1);
 			 //写入redis
-			 redisUtil.set(ResultEnum.USERREDISKEY.getMsg()+u.getId(), u.getId(), 2*60*60l);
+			 redisUtil.set(ResultEnum.USERREDISKEY.getMsg()+u.getId(), u, 2*60*60l);
 			 return ResultUtil.success(ResultEnum.SUCCESS);		 
 		 }
 		 return ResultUtil.success(ResultEnum.LOGINERROR);

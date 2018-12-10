@@ -49,8 +49,10 @@
 				  		<td th:text="${user.status eq '1'?'可用':'禁用'}"></td>
 				  		<td th:text="${#dates.format(user.joinTime,'yyyy-MM-dd hh:mm:ss')}"></td>
 				  		<td>
-	  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>
-	  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button>
+	  						<span th:if="${user.isAdmin} ne 1">
+		  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>
+		  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button>
+	  						</span>
 				  		</td>
 				  	</tr>
 			  	</tbody>

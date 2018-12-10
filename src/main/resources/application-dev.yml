@@ -7,6 +7,7 @@ server:
 management:
  port: 10087
  context-path: /manage
+
  
 spring:
  datasource:  # 数据库的配置 用的是阿里的druid连接池
@@ -55,7 +56,7 @@ logging:
    zhangheng:
     history: debug
  file:
-  D:/logs/history-logging.log
+  /logs/history-logging.log
 
 # 权限验证
 security:

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>后台首页-新闻动态管理</title>
+<link type="text/css" href="/css/layui.css" rel="stylesheet" media="all" />
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="header::header"></div>
+		<div th:replace="menu:: leftMenu"></div>
+		<div class="layui-body">
+			<!-- 新闻动态管理 -->
+			<p class="layui-elem-quote">
+				<a class="layui-btn layui-btn-normal" id="newsDy">新闻动态管理</a>
+			</p>
+			<table class="layui-table" lay-even="" lay-skin="row" style="margin-left: 5px;">
+				<colgroup>
+					<col />
+					<col width="80"/>
+					<col width="200"/>
+					<col width="200"/>
+				</colgroup>
+				<thead>
+					<tr>
+				      <th lay-data="{field:'content'}">内容</th>
+				      <th lay-data="{field:'sort'}">排序</th>
+				      <th lay-data="{field:'addTime'}">注册时间</th>
+				      <th lay-data="{fixed: 'right', align:'center', toolbar: '#barDemo'}">操作</th>
+				    </tr>
+				</thead>
+			  	<tbody id="pageTable">
+				  	<tr th:each="latestNew:${latestNews.data}">
+				  		<td th:text="${latestNew.content}"></td>
+				  		<td th:text="${latestNew.sort}"></td>
+				  		<td th:text="${#dates.format(latestNew.addTime,'yyyy-MM-dd hh:mm:ss')}"></td>
+				  		<td>
+	  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>
+	  						<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button>
+				  		</td>
+				  	</tr>
+			  	</tbody>
+			</table>
+ 			<div id="latestNewPage" style="text-align: center;"></div>
+		</div>
+		<div th:replace="footer:: footer"></div>
+	</div>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/layui.all.js"></script>
+	<script src="/js/common.js"></script>
+	<script src="/js/menu.js"></script>
+	<script th:inline="javascript">  
+		/*<![CDATA[*/  
+		    var count = [[${latestNews.count}]]; 
+		    var limit = 20; //每页显示20条
+		/*]]>*/  
+	</script> 
+	<script>
+
+		$(function() {
+			//总页数低于页码总数
+			layui.laypage.render({
+				elem : 'latestNewPage',
+				count : count,
+				limit:limit,
+				curr: location.hash.replace('#page=', ''),
+				hash: 'page', //自定义hash值
+				jump: function(obj,first){
+			       if(!first){	
+			    	  var data={
+		    			  'page':obj.curr,
+		    			  'pageSize':limit
+			    	  };
+			       	  ajaxUtil.get(true,data,consoleLatestNewListPath,latestNewCallback);	
+			       }
+				}
+			});
+			function latestNewCallback(res){
+				var html='';
+				$.each(res.data,function(i,data){
+					html +='<tr>';	
+					html +='<td>'+data.content+'</td>';
+					html +='<td>'+data.sort+'</td>';
+					html +='<td>'+formatDate(data.addTime)+'</td>';
+					html +='<td><button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe642;</i> 编辑</button>';
+					html +='<button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe640;</i> 删除</button></td>';
+					html +='</tr>';
+				});
+				$('#pageTable').html(html);
+			}
+		});
+	</script>
+
+</body>
+</html>

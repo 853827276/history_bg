@@ -20,6 +20,7 @@ var consoleMessageListPath=bgUrl+'console/message/list?'+new Date().getTime();
 var updatePwd=bgUrl+'user/updatePwd/';// user/updatePwd/{uid}
 var consoleAuthorListPath=bgUrl+'/console/author/list'+new Date().getTime();
 var addAuthorPath=bgUrl+'console/author/add';
+var consoleLatestNewListPath=bgUrl+'/console/latestNew/index'+new Date().getTime();
 function formatDate(time){
     var date = new Date(time);
 

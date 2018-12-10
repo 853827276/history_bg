@@ -27,6 +27,14 @@ body {
 .loginDiv{
 	text-align: center;
 }
+.wel_receive, .map_div{
+	width: 50%;
+	float: left;
+	height:530px; 
+}
+.clear{
+	clear: both;
+}
 .content .map{
 	height: 800px;
 	width: 100%;
